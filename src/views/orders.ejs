@@ -1,0 +1,38 @@
+<section class="order container mx-auto">
+    <div class="container mx-auto ">
+        <h1 class="font-bold text-xl bg-gray-50 py-4 text-center">All Orders</h1>
+        <%if(messages.success){%>
+        <div id="successAlert" class="flex items-center px-4 py-3 bg-green-500 text-white 
+              ">
+              <i class="far fa-check-circle text-xl mr-2"></i>
+           <p class="text-lg"><%=messages.success%></p>
+        </div>
+        <%}%>
+    </div>
+    <% if(orders.length>0){%>
+    <table class="w-full table-auto bg-white">
+        <thead>
+            <tr>
+                <th class="px-4 py-2 text-left">Oders</th>
+                <th class="px-4 py-2 text-left">Address</th>
+                <th class="px-4 py-2 text-left">Phone</th>
+                <th class="px-4 py-2 text-left">Time</th>
+                <th class="px-4 py-2 text-left">Order Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% orders.forEach((order)=>{ %>
+            <tr>
+                <td class="px-4 py-2 border"><a href="/order/<%=order._id%>"  class="text-yellow-500"><%=order._id%></a></td>
+                <td class="px-4 py-2 border"><%=order.address%></td>
+                <td class="px-4 py-2 border"><%=order.phone%></td>
+                <td class="px-4 py-2 border"><%=moment(order.createdAt).format('MMMM Do YYYY, h:mm:ss a')%></td>
+                <td class="px-4 py-2 border"><%=order.status%></td>
+            </tr>
+            <% })%>
+        </tbody>
+    </table>
+         <%}else{%>
+            <h1 class="font-bold text-center text-2xl">No orders yet</h1>
+            <%}%>
+</section>

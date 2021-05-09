@@ -1,0 +1,30 @@
+<section class="status">
+    <div class="container mx-auto py-4 ">
+        <div class=" w-full lg:w-2/3 flex items-center justify-between mx-auto">
+            <h1 class="font-bold text-xl ">Order Status</h1>
+            <h5>Order-id - <span class="text-green-500 text-sm px-3 py-2 
+                bg-gray-200 rounded-md">
+                    <%=order._id%>
+                </span>
+        </div>
+        <input type="hidden" value="<%=JSON.stringify(order)%>">
+        <div class=" list w-full lg:w-2/3 flex items-center justify-between mx-auto mt-16">
+            <ul class="w-full">
+                <li class="text-sm md:text-xl pb-16 " data-status="order placed">
+                    Order Placed <span class="text-sm"></span>
+                </li>
+                <li class="text-sm md:text-xl  pb-16" data-status="confirmed">Order Confirmed <span class="text-sm"></span>
+                </li>
+                <li class="text-sm md:text-xl  pb-16" data-status="prepared">
+                    Order Prepared <span class="text-sm"></span>
+                </li>
+                <li class="text-sm md:text-xl  pb-16" data-status="Out_for_Delivery">
+                    Out for Delivery <span class="text-sm"></span>
+                </li>
+                <li class="text-sm md:text-xl  pb-16" data-status="delivered">
+                    Delivered <span class="text-sm"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
