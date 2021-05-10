@@ -135,7 +135,9 @@ app.set('views', path.join(__dirname, '/src/views'))
 app.set('view engine', 'ejs')
 
 require('./src/routes/route')(app)
-
+app.use((req,res)=>{
+  res.status(404).render('404');
+})
 
  const server= app.listen(PORT , () => {
             console.log(`Listening on port ${PORT}`)
@@ -147,7 +149,7 @@ require('./src/routes/route')(app)
 const io=require('socket.io')(server);
 io.on('connection',(socket)=>{
     socket.on('join',(roomName)=>{
-        console.log(roomName)
+      
        socket.join(roomName)
     })
 })
@@ -156,9 +158,10 @@ io.on('connection',(socket)=>{
 eventEmitter.on('orderStatus',(data)=>{//data=order
    io.to(`order_${data.id}`).emit('orderUpdated',data);
 })
+
 //listening event from postOrder in orderControoler and sending to admin() in index.js
 eventEmitter.on('reflectOrder',(data)=>{//data==order
-    console.log(`server-reflectOrder  ${eventEmitter}`);
+   
    io.to('adminRoom').emit('reflectOrder1',data)
 })
 

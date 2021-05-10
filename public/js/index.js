@@ -3,6 +3,28 @@
 const addToCart = document.querySelectorAll('.addtocart');
 const cartCounter = document.querySelector("#cartCounter")
 let socket = io();
+
+//for nav
+
+const closeButton = document.querySelector('.close')
+const openButton = document.querySelector('.open')
+const sidebars = document.querySelectorAll('.nav-sidebar')
+
+openButton.addEventListener('click', (e) => {
+    //add nav-visble class on sidebars
+    sidebars.forEach((sidebar) => {
+        sidebar.classList.add('nav-visible');
+    })
+})
+closeButton.addEventListener('click', (e) => {
+    //remove nav-visble class from sidebars
+    sidebars.forEach((sidebar) => {
+        sidebar.classList.remove('nav-visible');
+    })
+})
+
+
+//cart counter
 const updateCart = (pizza) => {
     axios.post('/update-cart', pizza).
         then((res) => {
@@ -107,15 +129,60 @@ function admin() {
 }
 
 //customers individual order status
-let order = false;
-if (document.querySelector('section.status input')) {
-    order = document.querySelector('section.status input').value;
-    order = JSON.parse(order);
-}
-const lists = document.querySelectorAll('section.status .list ul li');
-let done = true;
-let err = {};
 
+let order=null;
+    if (document.querySelector('section.status input')) {
+        order = document.querySelector('section.status input').value;
+        order = JSON.parse(order);
+    }
+    const lists = document.querySelectorAll('section.status .list ul li');
+     
+    //to get status of order on every refresh
+      if(order)
+    orderTracker(order);
+
+function orderTracker(updatedOrder){
+
+    let done = true;
+  console.log(updatedOrder);
+
+  //reset status
+  lists.forEach((list)=>{
+    let span = list.childNodes[1];
+       list.classList.remove('current_stage');
+       list.classList.remove('stage_done');
+       span.innerHTML=""
+  })
+
+  //track order animation 
+lists.forEach((list) => {
+    let span = list.childNodes[1];
+    if (done) {
+        if (list.dataset.status !== updatedOrder.status) {
+            list.classList.remove('current_stage')
+            list.classList.add('stage_done')
+            span.innerText = moment(updatedOrder.updatedAt).format('MMMM Do YYYY, h:mm:ss a');;
+            if (list.nextElementSibling){
+                list.nextElementSibling.classList.add('current_stage');
+            }
+        }
+        else {
+            list.classList.remove('current_stage');
+            list.classList.add('stage_done');
+
+            span.innerText = moment(updatedOrder.updatedAt).format('MMMM Do YYYY, h:mm:ss a');
+            if (list.nextElementSibling){
+                list.nextElementSibling.classList.add('current_stage');
+            }
+            done = false;
+        } 
+    }
+    // else{
+    //     list.classList.remove('current_stage');
+    //     list.classList.remove('stage_done');
+    // }
+})
+}
 //  Socket.io
 if (order) {
     socket.emit('join', `order_${order._id}`);
@@ -140,12 +207,17 @@ if (window.location.pathname.includes('admin/orders')) {
     //from  orderController postOrder
 }
 
+       
+  
+
 socket.on('orderUpdated', (data) => {
-    let updateOrder = { ...order };
-    updateOrder.updatedAt = moment().format('MMMM Do YYYY, h:mm:ss a');
-    updateOrder.status = data.status;
+    let updatedOrder = { ...order };
+    updatedOrder.updatedAt = moment().format('MMMM Do YYYY, h:mm:ss a');
+    updatedOrder.status = data.status;
+    orderTracker(updatedOrder);
     console.log(data);
 })
+
 
 
 

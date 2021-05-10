@@ -9,12 +9,10 @@ function orderController() {
         },
         async order(req, res) {
             const result = await Order.find({ _id: req.params.id });
-
             //authorize whether it is the same user who ordered
             if (result) {
                 if (req.user._id.toString() === result[0].customerID.toString()) {
-
-                    return res.render('singleOrder', { order: result[0] })
+                    return  res.render('singleOrder', { order: result[0] });
                 } else {
                     return res.redirect("/");
                 }

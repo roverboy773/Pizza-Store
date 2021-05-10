@@ -1,4 +1,5 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400&family=Playfair+Display:ital,wght@1,500;1,600&display=swap');
 /* colors */
 :root{
     --primary:#fe5f1e;
@@ -13,22 +14,81 @@ body{
     font-family: 'Lato',sans-serif;
     -webkit-font-smoothing:antialiased;
     color:var(--dark);
+    font-family: 'Chivo', sans-serif;
+}
+
+nav h1{
+    font-family: 'Playfair Display', serif;
+    
+}
+.nav-sidebar{
+    top:0;
+    right:0;
+    position: fixed;
+    height:100vh; 
+    transform: translateX(100%);
+    transition: transform .4s ease-in-out;
+}
+.nav-visible{
+    transform: translateX(0);
+}
+.orange{
+    background-color: var(--primary);
+    width:30%;
+    box-shadow: -1px 0px 2px 0px rgba(34,31,31,.75);
+    transition-delay: .6s;
+}
+.orange.nav-visible{
+    transition-delay:0s;
+}
+.white{
+    background-color: #fff;
+    width:97%;
+    transition-delay: .3s;
+  }
+.white.nav-visible{
+    transition-delay:.3s;
+}
+.black{
+    background-color: rgb(34,31,31);
+    width:97%;
+    transition-delay:0s;
+    overflow-y: auto;
+}
+.black.nav-visible{
+    transition-delay:.6s;
+}
+
+nav button{
+    outline:0;
+    background: transparent;
+}
+nav button.open{
+    position:fixed;
+    right:20px;
+    top:1.5rem;
+    font-size:20px;
+}
+nav button.close{
+    color:white;
+    position:absolute;
+    right:20px;
+    top:10px;
 
 }
-#nav_logo{
- width:130px;
-}
-nav ul li a {
+
+
+nav ul li{
     transition:var(--smooth);
 }
-nav li:last-child a{
+nav li:last-child {
     background-color: var(--primary);
 }
-nav li a:hover{
+nav li:hover{
     color:var(--primary);
     background-color:var(--pure);
 }
-nav li:last-child a:hover{
+nav li:last-child:hover{
     background-color: var(--primary-hover);
 }
 
@@ -131,8 +191,8 @@ section.status .list ul li span{
 
 section.admin #alert{
     position:fixed;
-    right:0;
-    top:100px;
+    right:10%;
+    top:30%;
     z-index:1;
     display:none;
 }
@@ -145,3 +205,4 @@ section.admin #alert{
         white-space: nowrap;
     }
 }
+  
