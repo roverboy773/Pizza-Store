@@ -1,6 +1,7 @@
 
 
 const addToCart = document.querySelectorAll('.addtocart');
+const removeFromCart = document.querySelectorAll('.remove');
 const cartCounter = document.querySelector("#cartCounter")
 let socket = io();
 
@@ -12,17 +13,26 @@ const sidebars = document.querySelectorAll('.nav-sidebar')
 
 openButton.addEventListener('click', (e) => {
     //add nav-visble class on sidebars
+   
     sidebars.forEach((sidebar) => {
         sidebar.classList.add('nav-visible');
     })
 })
 closeButton.addEventListener('click', (e) => {
-    //remove nav-visble class from sidebars
+    //remove vnav-isble class from sidebars
     sidebars.forEach((sidebar) => {
         sidebar.classList.remove('nav-visible');
     })
 })
 
+document.addEventListener('click',(e)=>{
+    //remove nav-visible class from sidebars on clicking outside of sidebars
+    if(e.target.className!=='fas fa-bars' && sidebars[0].classList.contains('nav-visible')){
+        sidebars.forEach((sidebar) => {
+        sidebar.classList.remove('nav-visible');
+    })
+  }
+})
 
 //cart counter
 const updateCart = (pizza) => {
@@ -38,10 +48,16 @@ addToCart.forEach((btn) => {
         const pizza = JSON.parse(btn.dataset.pizza);
 
         updateCart(pizza);
-
     })
 })
 
+removeFromCart.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        const pizza = JSON.parse(btn.dataset.pizza);
+
+        updateCart(pizza);
+    })
+})
 //customer orders page alert
 const orderAlert = document.querySelector('#successAlert');
 if (orderAlert) {

@@ -13,50 +13,68 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/style.css">
 
     <title>Document</title>
 </head>
 
 <body>
-    <nav class="container mx-auto flex items-center justify-between py-2  bg-white shadow">
-        <div><a href="/"><img src="/img/pizza.png" id="nav_logo" class="w-20 md:w-32" alt=""></a></div>
+    <nav class="container mx-auto flex items-center justify-between py-2 bg-white shadow">
+        <div class="flex items-center">
+            <a href="/"><img src="/img/pizza.png" id="nav_logo" class="w-20 md:w-32" alt=""></a>
+            <h1 class="text-2xl md:text-4xl inline">The Pizza Store</h1>
+        </div>
+        <div class="flex items-center">
+            <% if(user){
+                if(user.displayName){ %>
+                <h2 class="text-gray-400 mr-12"> Welcome, <span class="text-yellow-500">
+                        <%=user.displayName%>
+                    </span>
+                </h2>
+                <%}%>
+                <% if(user.email){ %>
+                    <h2 class="text-gray-400 mr-12"> Welcome, <span class="text-yellow-500">
+                            <%=user.email%>
+                        </span>
+                    </h2>
+                    <%}}%>
+                    <div>
+                        <button class="open t-6 md:t-10 "><i class="fas fa-bars"></i></button>
+                        <div class="nav-sidebar orange">
+                            <div class="nav-sidebar white">
+                                <div class="nav-sidebar black">
+                                    <button class="close"><i class="fas fa-times"></i></button>
+                                    <ul class="text-white mt-10">
+                                        <li><a href="/" class="block p-6 text-center">Menu</a></li>
+                                        <li><a href="#" class="block p-6 text-center">Offers</a></li>
+                                        <% if(user) {%>
+                                            <li>
+                                                <form id="logoutForm" action="/logout" method="POST">
+                                                    <a onclick="document.getElementById('logoutForm').submit()" href="#"
+                                                        class="block p-6 text-center">Logout</a>
+                                                </form>
+                                            </li>
+                                            <li><a href="/orders" class="block p-6 text-center">Orders</a></li>
+                                            <%}else{%>
+                                                <li><a href="/register" class="block p-6 text-center">Register</a></li>
+                                                <li><a href="/login" class="block p-6 text-center">Login</a></li>
+                                                <%}%>
+                                                    <li><a href="/cart" class="block p-6 text-center">
+                                                            <span id="cartCounter" class="text-white font-bold pr-2">
+                                                                <%= session.cart ? session.cart.totalQty : '' %>
+                                                            </span>
+                                                            <i class="fas fa-shopping-cart text-white text-sm"></i>
+                                                        </a>
+                                                    </li>
+                                    </ul>
 
-        <h1 class="text-2xl md:text-4xl">The Pizza Store</h1>
-        <div>
-            <button class="open t-4 md:t-10 "><i class="fas fa-bars"></i></button>
-            <div class="nav-sidebar orange">
-                <div class="nav-sidebar white">
-                    <div class="nav-sidebar black">
-                       <button class="close"><i class="fas fa-times"></i></button>
-                        <ul class="text-white mt-10">
-                            <li><a href="/" class="block p-6 text-center">Menu</a></li>
-                            <li><a href="#" class="block p-6 text-center">Offers</a></li>
-                            <% if(user) {%>
-                                <li>
-                                    <form id="logoutForm" action="/logout" method="POST">
-                                        <a onclick="document.getElementById('logoutForm').submit()" href="#" class="block p-6 text-center">Logout</a>
-                                    </form>
-                                </li>
-                                <li><a href="/orders" class="block p-6 text-center">Orders</a></li>
-                                <%}else{%>
-                                    <li><a href="/register" class="block p-6 text-center">Register</a></li>
-                                    <li><a href="/login" class="block p-6 text-center">Login</a></li>
-                                    <%}%>
-                                        <li><a href="/cart" class="block p-6 text-center">
-                                                <span id="cartCounter" class="text-white font-bold pr-2">
-                                                    <%= session.cart ? session.cart.totalQty : '' %>
-                                                </span>
-                                                <i class="fas fa-shopping-cart text-white text-sm"></i>
-                                            </a>
-                                        </li>
-                         </ul>
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
-                </div>
-            </div>
-
-
         </div>
     </nav>
     <%- body %>

@@ -80,9 +80,12 @@ const flash = require('express-flash')
 const MongoDbStore = require('connect-mongo')(session)
 const passport=require('passport');
 const Emitter=require('events');
+const cors=require('cors');
 
+app.use(cors());
 // Database connection
 mongoose.connect(process.env.MONGO_CONNECTION_URL, { useNewUrlParser: true, useCreateIndex:true, useUnifiedTopology: true, useFindAndModify : true });
+
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log('Database connected...');
@@ -91,7 +94,7 @@ connection.once('open', () => {
 });
 
 
-// Session store
+//Session store
 let mongoStore = new MongoDbStore({
                 mongooseConnection: connection,
                 collection: 'sessions'
@@ -105,14 +108,14 @@ app.set('eventEmitter',eventEmitter);//binding eventEmiiter to the express app
 app.use(session({
     secret: process.env.COOKIE_SECRET,
     resave: false,
-    store: mongoStore,
+    store:mongoStore,   
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24 hour
 }))
 
 // Passport config
-const passportInit=require("./src/config/passport");
-passportInit(passport);
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -135,6 +138,7 @@ app.set('views', path.join(__dirname, '/src/views'))
 app.set('view engine', 'ejs')
 
 require('./src/routes/route')(app)
+
 app.use((req,res)=>{
   res.status(404).render('404');
 })

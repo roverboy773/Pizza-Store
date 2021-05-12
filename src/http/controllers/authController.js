@@ -4,29 +4,36 @@ const passport=require('passport');
 
 function authController(){
     return {
-        login(req,res){
+        loginType(req,res){
             res.render('login');
         },
-        postLogin(req,res,next){
-            passport.authenticate('local',(err,user,info)=>{
-                        //(err,user,info) are passed by done(null,user,message)
-                  if(err){
-                   req.flash('error',info.message); 
-                   return next(err);
-                }
-                if(!user){
-                    req.flash('error',info.message); 
-                   return res.redirect('/login');
-                }
-                req.logIn(user,(err)=>{
-                     if(err){
-                         req.flash('error',info.message);
-                        return next(err);
-                     }
-                     return res.redirect("/")
-                })
-            })(req,res,next)
+        loginEmail(req,res){
+            return res.render('loginEmail')
         },
+//         postLogin(req,res){
+//             // passport.authenticate('local',(err,user,info)=>{
+//             //             //(err,user,info) are passed by done(null,user,message)
+//             //       if(err){
+//             //        req.flash('error',info.message); 
+//             //        return next(err);
+//             //     }
+//             //     if(!user){
+//             //         req.flash('error',info.message); 
+//             //        return res.redirect('/login');
+//             //     }
+//             //     req.logIn(user,(err)=>{
+//             //          if(err){
+//             //              req.flash('error',info.message);
+//             //             return next(err);
+//             //          }
+//             //          return res.redirect("/")
+//             //     })
+//             // })(req,res,next)
+//               passport.authenticate('local', { failureRedirect: '/login' }),
+//               function(req, res) {
+//               res.redirect('/');
+//   }
+//         },
         register(req,res){
             res.render('register');
         },
@@ -67,6 +74,7 @@ function authController(){
         },
         logout(req,res){
             delete req.session.cart;
+            delete req.session.passport;
             req.logout();
             return res.redirect('/')
         }

@@ -4,4 +4,4 @@ function restrict(req,res,next){
      return next();
    else res.redirect('/')
 }
-module.exports=restrict;
+ module.exports=restrict;
