@@ -28,6 +28,7 @@ nav h1{
     height:100vh; 
     transform: translateX(100%);
     transition: transform .4s ease-in-out;
+    z-index:2
 }
 .nav-visible{
     transform: translateX(0);
@@ -36,7 +37,7 @@ nav h1{
     background-color: var(--primary);
     width:30%;
     box-shadow: -1px 0px 2px 0px rgba(34,31,31,.75);
-    transition-delay: .6s;
+    transition-delay: .4s;
 }
 .orange.nav-visible{
     transition-delay:0s;
@@ -44,10 +45,10 @@ nav h1{
 .white{
     background-color: #fff;
     width:97%;
-    transition-delay: .3s;
+    transition-delay: .2s;
   }
 .white.nav-visible{
-    transition-delay:.3s;
+    transition-delay:.2s;
 }
 .black{
     background-color: rgb(34,31,31);
@@ -56,12 +57,13 @@ nav h1{
     overflow-y: auto;
 }
 .black.nav-visible{
-    transition-delay:.6s;
+    transition-delay:.4s;
 }
 
 nav button{
     outline:0;
     background: transparent;
+    padding:5px;
 }
 nav button.open{
     position:fixed;

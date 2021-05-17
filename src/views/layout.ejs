@@ -20,31 +20,30 @@
 </head>
 
 <body>
-    <nav class="container mx-auto flex items-center justify-between py-2 bg-white shadow">
+    <nav class="container mx-auto flex items-center justify-between py-2 bg-transparent">
         <div class="flex items-center">
             <a href="/"><img src="/img/pizza.png" id="nav_logo" class="w-20 md:w-32" alt=""></a>
             <h1 class="text-2xl md:text-4xl inline">The Pizza Store</h1>
         </div>
         <div class="flex items-center">
-            <% if(user){
-                if(user.displayName){ %>
-                <h2 class="text-gray-400 mr-12"> Welcome, <span class="text-yellow-500">
-                        <%=user.displayName%>
-                    </span>
-                </h2>
-                <%}%>
-                <% if(user.email){ %>
+            <% if(user){%>
+                <% if(user.displayName){ %>
                     <h2 class="text-gray-400 mr-12"> Welcome, <span class="text-yellow-500">
-                            <%=user.email%>
+                            <%=user.displayName%>
+                        </span>
+                    </h2>
+                    <%}else{%>
+                        <h2 class="text-gray-400 mr-12"> Welcome, <span class="text-yellow-500">
+                            <%=user.name%>
                         </span>
                     </h2>
                     <%}}%>
                     <div>
-                        <button class="open t-6 md:t-10 "><i class="fas fa-bars"></i></button>
+                        <button class="open t-6 md:t-10 p-2 "><i class="fas fa-bars"></i></button>
                         <div class="nav-sidebar orange">
                             <div class="nav-sidebar white">
                                 <div class="nav-sidebar black">
-                                    <button class="close"><i class="fas fa-times"></i></button>
+                                    <button class="close p-2"><i class="fas fa-times"></i></button>
                                     <ul class="text-white mt-10">
                                         <li><a href="/" class="block p-6 text-center">Menu</a></li>
                                         <li><a href="#" class="block p-6 text-center">Offers</a></li>

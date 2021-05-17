@@ -66,6 +66,8 @@ function authController(){
              const saved=await user.save();
                 if(saved){
                     //auto login after registration
+                    saved.customerID=saved._id;
+                    await saved.save();
                   return res.redirect('/');
                 }else{
                     req.flash('error','Something went wrong!')
@@ -73,8 +75,11 @@ function authController(){
                 }
         },
         logout(req,res){
-            delete req.session.cart;
-            delete req.session.passport;
+            if(req.session.cart)
+            delete req.session.cart
+            // passport.deserializeUser(function(user,done){
+            //    done(null,false)
+            // })
             req.logout();
             return res.redirect('/')
         }

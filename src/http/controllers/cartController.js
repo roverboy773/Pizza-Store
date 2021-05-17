@@ -5,7 +5,7 @@ function cartController(){
           },
           update(req,res){
        // check if cart doesnt exists
-        
+       
              if(!req.session.cart){
                  req.session.cart={
                      items:{ },

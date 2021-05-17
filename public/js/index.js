@@ -13,25 +13,27 @@ const sidebars = document.querySelectorAll('.nav-sidebar')
 
 openButton.addEventListener('click', (e) => {
     //add nav-visble class on sidebars
-   
+ // console.log('open')
     sidebars.forEach((sidebar) => {
         sidebar.classList.add('nav-visible');
     })
 })
 closeButton.addEventListener('click', (e) => {
     //remove vnav-isble class from sidebars
+   // console.log('close')
     sidebars.forEach((sidebar) => {
         sidebar.classList.remove('nav-visible');
     })
 })
 
-document.addEventListener('click',(e)=>{
+document.addEventListener('click', (e) => {
     //remove nav-visible class from sidebars on clicking outside of sidebars
-    if(e.target.className!=='fas fa-bars' && sidebars[0].classList.contains('nav-visible')){
+    //console.log('outside')
+    if (e.target.className !== 'fas fa-bars' && sidebars[0].classList.contains('nav-visible')) {
         sidebars.forEach((sidebar) => {
-        sidebar.classList.remove('nav-visible');
-    })
-  }
+            sidebar.classList.remove('nav-visible');
+        })
+    }
 })
 
 //cart counter
@@ -46,7 +48,7 @@ const updateCart = (pizza) => {
 addToCart.forEach((btn) => {
     btn.addEventListener('click', (e) => {
         const pizza = JSON.parse(btn.dataset.pizza);
-
+        //console.log('add to cart')
         updateCart(pizza);
     })
 })
@@ -136,6 +138,7 @@ function admin() {
         }
     }).then((res) => {
         OrdersArray = res.data;
+        console.log(OrdersArray)
         htmlMarkup = generateMarkup(OrdersArray);
         adminOrderTable.innerHTML = htmlMarkup;
     }).catch((err) => {
@@ -146,64 +149,63 @@ function admin() {
 
 //customers individual order status
 
-let order=null;
-    if (document.querySelector('section.status input')) {
-        order = document.querySelector('section.status input').value;
-        order = JSON.parse(order);
-    }
-    const lists = document.querySelectorAll('section.status .list ul li');
-     
-    //to get status of order on every refresh
-      if(order)
+let order = null;
+if (document.querySelector('section.status input')) {//from Singleorder ejs
+    order = document.querySelector('section.status input').value;
+    order = JSON.parse(order);
+}
+const lists = document.querySelectorAll('section.status .list ul li');
+
+//to get status of order on every refresh
+if (order)
     orderTracker(order);
 
-function orderTracker(updatedOrder){
+function orderTracker(updatedOrder) {
 
     let done = true;
-  console.log(updatedOrder);
+    console.log(updatedOrder);
 
-  //reset status
-  lists.forEach((list)=>{
-    let span = list.childNodes[1];
-       list.classList.remove('current_stage');
-       list.classList.remove('stage_done');
-       span.innerHTML=""
-  })
+    //reset status
+    lists.forEach((list) => {
+        let span = list.childNodes[1];
+        list.classList.remove('current_stage');
+        list.classList.remove('stage_done');
+        //span.innerHTML = ""
+    })
 
-  //track order animation 
-lists.forEach((list) => {
-    let span = list.childNodes[1];
-    if (done) {
-        if (list.dataset.status !== updatedOrder.status) {
-            list.classList.remove('current_stage')
-            list.classList.add('stage_done')
-            span.innerText = moment(updatedOrder.updatedAt).format('MMMM Do YYYY, h:mm:ss a');;
-            if (list.nextElementSibling){
-                list.nextElementSibling.classList.add('current_stage');
+    //track order animation 
+    lists.forEach((list) => {
+        let span = list.childNodes[1];
+        if (done) {
+            if (list.dataset.status !== updatedOrder.status) {
+                list.classList.remove('current_stage')
+                list.classList.add('stage_done')
+               // span.innerText = moment(updatedOrder.updatedAt).format('MMMM Do YYYY, h:mm:ss a');;
+                if (list.nextElementSibling) {
+                    list.nextElementSibling.classList.add('current_stage');
+                }
+            }
+            else {
+                list.classList.remove('current_stage');
+                list.classList.add('stage_done');
+
+                span.innerText = moment(updatedOrder.updatedAt).format('MMMM Do YYYY, h:mm:ss a');
+                if (list.nextElementSibling) {
+                    list.nextElementSibling.classList.add('current_stage');
+                }
+                done = false;
             }
         }
-        else {
-            list.classList.remove('current_stage');
-            list.classList.add('stage_done');
-
-            span.innerText = moment(updatedOrder.updatedAt).format('MMMM Do YYYY, h:mm:ss a');
-            if (list.nextElementSibling){
-                list.nextElementSibling.classList.add('current_stage');
-            }
-            done = false;
-        } 
-    }
-    // else{
-    //     list.classList.remove('current_stage');
-    //     list.classList.remove('stage_done');
-    // }
-})
+        else{
+             span.innerHTML = ""
+        }
+    })
 }
 //  Socket.io
 if (order) {
     socket.emit('join', `order_${order._id}`);
 }
-if (window.location.pathname.includes('admin/orders')) {
+if (window.location.pathname.includes('/admin/orders')) {
 
     admin();
     socket.on('reflectOrder1', (data) => {
@@ -223,16 +225,17 @@ if (window.location.pathname.includes('admin/orders')) {
     //from  orderController postOrder
 }
 
-       
-  
 
-socket.on('orderUpdated', (data) => {
-    let updatedOrder = { ...order };
-    updatedOrder.updatedAt = moment().format('MMMM Do YYYY, h:mm:ss a');
-    updatedOrder.status = data.status;
-    orderTracker(updatedOrder);
-    console.log(data);
-})
+
+if (window.location.pathname.includes('/order/')) {
+    socket.on('orderUpdated', (data) => {
+         let updatedOrder = { ...data };
+        // updatedOrder.updatedAt = moment(data.updatedAt).format('MMMM Do YYYY, h:mm:ss a');
+        // updatedOrder.status = data.status;
+        orderTracker(updatedOrder);
+       // console.log(data);
+    })
+}
 
 
 

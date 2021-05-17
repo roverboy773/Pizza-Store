@@ -5,9 +5,12 @@ function adminController() {
         async index(req, res) {
           const orders=await Order.find({status:{$ne:'completed'}})
            .populate('customerID','-password').sort({createdAt:-1});
+         //  console.log(orders)
            if(orders){
                if(req.xhr)
-                return res.json(orders)
+                { //console.log(xhr)
+                    return res.json(orders)
+                }
                 return res.render('admin');
            }
         },
@@ -16,7 +19,7 @@ function adminController() {
             if(updated){
                 const eventEmitter=req.app.get('eventEmitter');
     
-                eventEmitter.emit('orderStatus',{id:req.body.orderId,status:req.body.status})
+                eventEmitter.emit('orderStatus',updated)
              return res.redirect("/admin/orders");
             }
             else{

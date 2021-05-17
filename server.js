@@ -107,7 +107,7 @@ app.set('eventEmitter',eventEmitter);//binding eventEmiiter to the express app
 // Session config
 app.use(session({
     secret: process.env.COOKIE_SECRET,
-    resave: false,
+    resave: true,
     store:mongoStore,   
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24 hour
