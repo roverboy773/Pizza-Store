@@ -16,7 +16,6 @@ body{
     color:var(--dark);
     font-family: 'Chivo', sans-serif;
 }
-
 nav h1{
     font-family: 'Playfair Display', serif;
     
@@ -28,7 +27,7 @@ nav h1{
     height:100vh; 
     transform: translateX(100%);
     transition: transform .4s ease-in-out;
-    z-index:2
+    z-index:10
 }
 .nav-visible{
     transform: translateX(0);
@@ -70,6 +69,7 @@ nav button.open{
     right:20px;
     top:1.5rem;
     font-size:20px;
+    z-index:10
 }
 nav button.close{
     color:white;
@@ -97,23 +97,93 @@ nav li:last-child:hover{
 section.hero{
     background-color: var(--secondary);
 }
-.addtocart,.remove{
-    border:2px solid var(--primary);
-    color:var(--primary);
-    transition:var(--smooth);
-}
-.addtocart:hover,.remove:hover{
-    background-color: var(--primary);
-    border-color: var(--pure);
-    color:var(--pure);
-}
-.addtocart:focus,.remove:focus{
-    outline:none;
+
+/* menu */
+section.menu .slideshow_container {
+    /* background-color:#B6EFC3; */
+    width:90%;
+    overflow: hidden;
+    position: relative;
 }
 
-.remove{
-    display: none;
+section.menu .slideshow.child0{
+    width:1800%;
+    background-color: #5F1EFE;
+    transition:1s ease-in-out;
 }
+section.menu .slideshow.child1{
+    width:400%;
+    background-color: #FE1E4D;
+    transition:1s ease-in-out;
+}
+section.menu .slideshow.child2{
+    width:200%;
+    background-color: #96D301;
+    transition:1s ease-in-out;
+}
+section.menu .slideshow.child3{
+    width:400%;
+    background-color: #01A784;
+    transition:1s ease-in-out;
+}
+section.menu .slideshow_item {
+    background: transparent;
+    color:var(--secondary);
+    
+}
+section.menu .slideshow_item img {
+    filter: drop-shadow(5mm 6mm 4mm rgba(46, 45, 45, 0.5));
+    transition: .3s ease-in-out;
+}
+section.menu .slideshow_item:hover img{
+    transform: scale(1.05);
+    filter: drop-shadow(9mm 6mm 4mm rgba(46, 45, 45, 0.5));
+
+}
+section.menu .slideshow_item .description{
+    color:#bba0ff;
+    border-radius: 5px;
+}
+
+section.menu .slideshow_container .menu_button{
+    margin:0 20px;
+    z-index:5;
+    cursor:pointer
+}
+.menu_left{
+    position:absolute;
+    top:50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+.menu_right{
+    position:absolute;
+    bottom:45.4%;
+    right:0%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+.addtocart{
+    border:4px solid #33CC4A ;
+    color:#33CC4A;
+    transition:var(--smooth);
+    outline:none;
+}
+.removeFromCart{
+    border:4px solid red;
+    color:red;
+    transition:var(--smooth);
+    outline:none;
+}
+.addtocart:hover,.removeFromCart:hover{
+    background-color: #d0bdff;
+}
+.addtocart:active,.removeFromCart:active{
+    background-color:#33CC4A;
+    border-color: var(--primary);
+    color:var(--pure);
+}
+
 section.cart{
     background-color: var(--secondary);
 }
@@ -229,3 +299,17 @@ section.admin #alert{
     }
 }
   
+
+@keyframes animate{
+    0%{
+       transform:scale(1);
+    }
+    50%{
+        transform:scale(1.5);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+
+

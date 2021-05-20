@@ -1,50 +1,116 @@
 <section class="hero mt-4 md:mt-0">
-    <div class="container mx-auto flex items-center text-center">
-        <div class="w-1/2 mx-6">
+    <div class=" block md:flex items-center justify-center text-center bg-transparent h-screen">
+        <div class="w-1/2 mx-auto flex items-center justify-center flex-col">
             <p class="text-xl"><em>are you Hungry?</em></p>
             <h1 class="text-3xl md:text-6xl font-bold mb-3">Don't Wait!</h1>
-            <a href="/cart" class="addtocart block text-sm md:text-xl text-center rounded-full py-2 px-3">
+            <a href="/cart"
+                class="block text-sm md:text-xl text-center rounded-full py-2 px-3 border-4 bg-gray-200 w-1/2 hover:bg-green-400 hover:text-white">
                 Order Now
             </a>
         </div>
-        <div class="w-auto">
-            <img src="/img/karthik-garikapati-oBbTc1VoT-0-unsplash.jpg" alt=" " class="rounded-2xl">
+        <div class="w-full md:w-3/4">
+            <img src="/img/pizza_svg.svg" alt=" ">
         </div>
     </div>
 </section>
 
-<section class="menu container mx-auto py-8">
-    <h1 class="text-xl font-bold mb-8">MENU</h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
-         gap-y-16 gap-x-12">
+<section class="menu container mx-auto bg-gray-100">
+    <%let i=0%>
 
-        <% pizzas.forEach(pizza=> { %>
-            <div class="w-full md:w-full">
-                    <img src="/img/<%= pizza.image %>" alt="" class="h-40 mb-4 mx-auto 
-                    rounded-2xl">
-                
-                <div class="text-center">
-                    <h2 class="mb-2 text-lg">
-                        <%=pizza.name%>
-                    </h2>
-                    <p class="py-1 px-4 rounded-full uppercase text-xs">
-                        <%=pizza.size%>
-                    </p>
-                    <div class="flex items-center justify-around mt-4">
-                        <button data-pizza='<%= JSON.stringify(pizza)%>' class="remove  
-                            flex items-center flex-between px-6 py-1 rounded-full font-bold">
-                          <span>-</span><span class="ml-1">Remove</span>
-                       </button>
-                        <span class="font-bold text-lg">Rs <%=pizza.price%></span>
-                        <button data-pizza='<%= JSON.stringify(pizza)%>' class="addtocart 
-                                px-6 py-1 rounded-full font-bold">
-                            <span>+</span><span class="ml-4">Add</span>
-                        </button>
+        <%for(const menu in Menu){%>
+            <% var obj=Menu[menu]%>
+                <h1 class="text-xl font-bold text-center uppercase my-3 text-2xl tracking-wider">
+                    <%=menu%>
+                </h1>
+                <div class="slideshow_container mx-auto h-auto md:h-auto">
 
+                    <div class="menu_left menu_button">
+                        <i class="fas fa-arrow-left text-3xl left<%=i%>"></i>
                     </div>
-                </div>
-            </div>
-            <% }) %>
+                    <div class="slideshow child<%=i%> mx-auto flex h-auto md:h-auto" style="margin-left: 100%;">
 
+                        <% obj.forEach(item=> { %>
+                            <div class="slideshow_item block h-auto md:flex md:h-80 ">
+                                <img src="/img/<%= item.image %>" alt="" class=" mb-4 bg-transparent">
+
+                                <div class="text-center mr-4 flex items-center justify-center flex-col">
+                                    <h2 class="mb-2 text-2xl font-bold">
+                                        <%=item.name%>
+                                    </h2>
+
+                                    <span class="font-bold text-lg mr-2 mt-4 block">Starting From Rs <%=item.price%>
+                                            <span class="font-normal text-sm">*Inc.of all Taxes</span>
+                                    </span>
+
+                                    <div class="mt-4 flex items-center justify-center flex-row">
+
+
+                                        <button data-pizza='<%= JSON.stringify(item)%>' class="removeFromCart  
+                                            px-4 py-1 rounded-full font-bold block">
+                                            <span>-</span>
+                                        </button>
+                                        <%let val=item._id.toString()%>
+                                            <%if(session.cart){%>
+                                                <%if(session.cart.items[val]){%>
+                                                    <span class="m-3 individualCart" data-id="<%=item._id%>">
+                                                        <%=session.cart.items[val].qty%>
+                                                    </span>
+                                                    <%}else{%>
+                                                        <span class="m-3 individualCart"
+                                                            data-id="<%=item._id%>">0</span>
+                                                        <%}}else{%>
+                                                            <span class="m-3 individualCart"
+                                                                data-id="<%=item._id%>">0</span>
+                                                            <%}%>
+
+                                                                <button data-pizza='<%= JSON.stringify(item)%>' class="addtocart 
+                                    px-4 py-1 rounded-full font-bold block">
+                                                                    <span>+</span>
+                                                                </button>
+
+                                    </div>
+                                </div>
+
+                                <div class="description m-8 px-2 md:w-1/3">
+                                    <h2 class="font-bold text-lg text-black text-center">Description</h2>
+                                    <p class="text-white"> Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                        Maxime accusamus
+                                        voluptatem ab,
+                                        dolores deserunt atque culpa ipsam numquam aliquid libero?</p>
+                                    <h2 class="font-bold text-lg text-black text-center">Ingredients Used:</h2>
+                                    <p class="text-white"> Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                        Maxime accusamus
+                                        voluptatem ab,
+                                        dolores deserunt atque culpa ipsam numquam aliquid libero?</p>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                    <div class="menu_right menu_button ">
+                        <i class="fas fa-arrow-right text-3xl right<%=i%>"></i>
+                    </div>
+                    <%i++%>
+                </div>
+                <%}%>
+</section>
+
+<section class="visit container mx-auto bg-gray-100 w-full">
+    <h1 class="font-bold text-3xl text-center tracking-wider my-3">Visit Us</h1>
+    <div class="block items-center justify-center md:flex">
+        <div class="text-center">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus corporis nisi, eligendi iste qui quae dolores
+            adipisci eaque repellat error.
+            <hr> 
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod debitis culpa eum sequi nemo explicabo facere
+            voluptatem vero id molestias.
+            <hr>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto harum possimus vitae. Aperiam corporis
+            voluptatibus molestiae ipsa, officiis maiores eaque
+            <hr>
+        </div>
+
+        <div class="my-2 md:mx-2">
+            <img src="/img/dark_map.svg" alt="" class="w-2/3">
+        </div>
     </div>
 </section>

@@ -28,9 +28,41 @@ function cartController(){
                  cart.totalQty=cart.totalQty + 1;
                  cart.totalPrice=cart.totalPrice + req.body.price;
              }
-            // console.log(req.session);
-                return res.json({totalqty:req.session.cart.totalQty});
-          }
+            // console.log(req.session)
+              return res.json({cart});
+          },
+          remove(req,res){
+            // check if cart doesnt exists
+            
+                  if(!req.session.cart){
+                    return
+                  }
+                  let cart=req.session.cart;
+                 let cartTemp
+                  //check if item dont exists in cart
+                  if(cart.items[req.body._id]){
+                       if(cart.items[req.body._id].qty>1){
+                        cart.items[req.body._id].qty=cart.items[req.body._id].qty-1;
+                      cart.totalPrice=cart.totalPrice - req.body.price;
+                      cart.totalQty=cart.totalQty - 1;
+
+                      return res.json({cart});
+                      }else{
+                          cartTemp=cart
+                          cartTemp.items[req.body._id].qty=cart.items[req.body._id].qty-1;
+                          cartTemp.totalPrice=cart.totalPrice - req.body.price;
+                          cartTemp.totalQty=cart.totalQty - 1;
+                          console.log(cartTemp)
+                      delete cart.items[req.body._id]
+                      return res.json({cartTemp});
+                      }
+                       
+                       
+
+                  }
+                 // console.log(req.session)
+                  
+               }
     }
 }
 

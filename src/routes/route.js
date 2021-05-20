@@ -19,6 +19,7 @@ function routes(app) {
   //cart
   app.get('/cart', cartController().index);
   app.post('/update-cart', cartController().update);
+  app.post('/remove-cart', cartController().remove);
   //order
   app.get('/orders', isLoggedin, orderController().orders);
   app.post('/orders', orderController().postOrder);

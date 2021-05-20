@@ -1,8 +1,17 @@
-
+if(performance.navigation.type == 2){
+    location.reload();
+ }
 
 const addToCart = document.querySelectorAll('.addtocart');
-const removeFromCart = document.querySelectorAll('.remove');
+const removeFromCart = document.querySelectorAll('.removeFromCart');
 const cartCounter = document.querySelector("#cartCounter")
+const slideshow = document.querySelectorAll('.slideshow')
+
+
+//const menuButton=document.querySelectorAll()
+// const sliderContainer = document.querySelector('.slideshow_container')
+
+//console.log(document.querySelectorAll(' .slideshow'))
 let socket = io();
 
 //for nav
@@ -13,14 +22,14 @@ const sidebars = document.querySelectorAll('.nav-sidebar')
 
 openButton.addEventListener('click', (e) => {
     //add nav-visble class on sidebars
- // console.log('open')
+    // console.log('open')
     sidebars.forEach((sidebar) => {
         sidebar.classList.add('nav-visible');
     })
 })
 closeButton.addEventListener('click', (e) => {
     //remove vnav-isble class from sidebars
-   // console.log('close')
+    // console.log('close')
     sidebars.forEach((sidebar) => {
         sidebar.classList.remove('nav-visible');
     })
@@ -35,31 +44,181 @@ document.addEventListener('click', (e) => {
         })
     }
 })
+// window.onscroll = function (e) {
+//     console.log(window.scrollY); // Value of scroll Y in px
+// };
+//menu slideshow
 
-//cart counter
-const updateCart = (pizza) => {
-    axios.post('/update-cart', pizza).
-        then((res) => {
-            //console.log(res);
-            cartCounter.innerText = res.data.totalqty;
-        }).catch(err => console.log(err));
+
+if (window.location.pathname === '/') {
+   
+
+    const menuRightButton=document.querySelectorAll('.menu_right i')
+    const menuLeftButton=document.querySelectorAll('.menu_left i')
+    
+   //arrow key functionality
+    menuRightButton.forEach((btn)=>{  
+        btn.addEventListener('click', (e) => {
+             
+          if(btn.classList.contains('right0')){
+            var p = slideshow[0].style.marginLeft; // return value in px; i.e 50px
+            console.log(p.length)
+             p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
+             slideshow[0].style.marginLeft = (+p)- 100 +'%' // convert p to number and add 10
+          }
+          else if(btn.classList.contains('right1')){
+            var p = slideshow[1].style.marginLeft; // return value in px; i.e 50px
+            console.log(p)
+             p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
+             slideshow[1].style.marginLeft = (+p) - 100 +'%' // convert p to number and add 10
+          }
+          else if(btn.classList.contains('right2')){
+            var p = slideshow[2].style.marginLeft; // return value in px; i.e 50px
+            console.log(p)
+             p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
+             slideshow[2].style.marginLeft = (+p) - 100 +'%' // convert p to number and add 10
+          }
+          else if(btn.classList.contains('right3')){
+            var p = slideshow[3].style.marginLeft; // return value in px; i.e 50px
+            console.log(p)
+             p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
+             slideshow[3].style.marginLeft = (+p) - 100 +'%' // convert p to number and add 10
+          }
+    })
+  })
+    
+    menuLeftButton.forEach((btn)=>{
+        btn.addEventListener('click', (e) => {
+            if(btn.classList.contains('left0')){
+                var p = slideshow[0].style.marginLeft; // return value in px; i.e 50px
+                console.log(p)
+                 p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
+                 slideshow[0].style.marginLeft = (+p) + 100 +'%' // convert p to number and add 10
+              }
+              else if(btn.classList.contains('left1')){
+                var p = slideshow[1].style.marginLeft; // return value in px; i.e 50px
+                console.log(p)
+
+                 p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
+                 slideshow[1].style.marginLeft = (+p) + 100 +'%' // convert p to number and add 10
+              }
+              else if(btn.classList.contains('left2')){
+                var p = slideshow[2].style.marginLeft; // return value in px; i.e 50px
+                console.log(p)
+
+                 p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
+                 slideshow[2].style.marginLeft = (+p) + 100 +'%' // convert p to number and add 10
+              }
+              else if(btn.classList.contains('left3')){
+                var p = slideshow[3].style.marginLeft; // return value in px; i.e 50px
+                console.log(p)
+
+                 p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
+                 slideshow[3].style.marginLeft = (+p)+ 100 +'%' // convert p to number and add 10
+              }
+        })
+    })
+    
+    //sliders animation
+
+   let observer=new IntersectionObserver((entries,observer)=>{
+       entries.forEach((entry)=>{
+           if(entry.isIntersecting){
+               let item=entry.target;
+               item.style.marginLeft="0%"
+           }
+       })        
+   },{
+         rootMargin:'0px 0px 0px 0px',
+         threshold:0
+   })
+    
+   slideshow.forEach((item)=>{
+     observer.observe(item)
+   })
+    
+
+    
+
+ 
+
+    //cart counter
+    const updateCart = (pizza) => {
+        axios.post('/update-cart', pizza).
+            then((res) => {
+                //console.log(res);
+                cartCounter.innerText = res.data.cart.totalQty;
+                let pizzaID=pizza._id.toString()
+                //console.log(res.data.cart.items[pizzaID])
+
+                if(res.data.cart.items[pizzaID]){
+                    let individualCounter = document.querySelectorAll('.individualCart')
+                   individualCounter.forEach((indi)=>{
+                        if(indi.dataset.id===pizzaID)
+                        {
+                            indi.innerHTML=res.data.cart.items[pizzaID].qty
+                             //console.log(res.data.cart.items[pizzaID].qty)
+                        }
+                    })
+                }
+            }).catch(err => console.log(err));
+    }
+    const removeCart = (pizza) => {
+        axios.post('/remove-cart', pizza).
+            then((res) => {
+                console.log(res);
+                //cartCounter.innerText = res.data.totalqty;
+                //console.log(res);
+                let pizzaID=pizza._id.toString()
+
+                if(res.data.cart){
+                cartCounter.innerText = res.data.cart.totalQty;
+                if(res.data.cart.items[pizzaID]){
+                    let individualCounter = document.querySelectorAll('.individualCart')
+                   individualCounter.forEach((indi)=>{
+                        if(indi.dataset.id===pizzaID) 
+                            indi.innerHTML=res.data.cart.items[pizzaID].qty
+                            //     console.log(res.data.cart.items[pizzaID].qty)
+                    })
+                }
+              }
+                else if(res.data.cartTemp){
+                cartCounter.innerText ='0';
+                if(res.data.cartTemp){
+                    let individualCounter = document.querySelectorAll('.individualCart')
+                   individualCounter.forEach((indi)=>{
+                        if(indi.dataset.id===pizzaID)
+                            indi.innerHTML='0'
+                            //     console.log(res.data.cart.items[pizzaID].qty
+                    })
+                }
+            }
+               // console.log(res.data.cart.items[pizzaID])
+
+                
+    
+            }).catch(err => console.log(err));
+    }
+    //addtocart functionality
+    addToCart.forEach((btn,index) => {
+        btn.addEventListener('click', (e) => {
+            const pizza = JSON.parse(btn.dataset.pizza);
+            
+            updateCart(pizza);
+           
+
+        })
+    })
+    //remove from cart functionality
+    removeFromCart.forEach((btn)=>{
+      btn.addEventListener('click', (e) => {
+            const pizza = JSON.parse(btn.dataset.pizza);
+
+            removeCart(pizza);
+        })
+    })
 }
 
-addToCart.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-        const pizza = JSON.parse(btn.dataset.pizza);
-        //console.log('add to cart')
-        updateCart(pizza);
-    })
-})
-
-removeFromCart.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-        const pizza = JSON.parse(btn.dataset.pizza);
-
-        updateCart(pizza);
-    })
-})
 //customer orders page alert
 const orderAlert = document.querySelector('#successAlert');
 if (orderAlert) {
@@ -68,7 +227,7 @@ if (orderAlert) {
     }, 2000)
 }
 
-//render admin orders page body
+//render admin order's page Tablebody
 let OrdersArray = [];
 let htmlMarkup;
 const adminOrderTable = document.querySelector('#adminOrderTablebody');
@@ -180,7 +339,7 @@ function orderTracker(updatedOrder) {
             if (list.dataset.status !== updatedOrder.status) {
                 list.classList.remove('current_stage')
                 list.classList.add('stage_done')
-               // span.innerText = moment(updatedOrder.updatedAt).format('MMMM Do YYYY, h:mm:ss a');;
+                // span.innerText = moment(updatedOrder.updatedAt).format('MMMM Do YYYY, h:mm:ss a');;
                 if (list.nextElementSibling) {
                     list.nextElementSibling.classList.add('current_stage');
                 }
@@ -196,8 +355,8 @@ function orderTracker(updatedOrder) {
                 done = false;
             }
         }
-        else{
-             span.innerHTML = ""
+        else {
+            span.innerHTML = ""
         }
     })
 }
@@ -229,11 +388,11 @@ if (window.location.pathname.includes('/admin/orders')) {
 
 if (window.location.pathname.includes('/order/')) {
     socket.on('orderUpdated', (data) => {
-         let updatedOrder = { ...data };
+        let updatedOrder = { ...data };
         // updatedOrder.updatedAt = moment(data.updatedAt).format('MMMM Do YYYY, h:mm:ss a');
         // updatedOrder.status = data.status;
         orderTracker(updatedOrder);
-       // console.log(data);
+        // console.log(data);
     })
 }
 
