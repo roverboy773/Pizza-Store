@@ -26,6 +26,23 @@ const orderSchema=new mongoose.Schema({
    status:{
        type:String,
        default:'order placed',
+   },
+   totalPrice:{
+       type:Number,
+       required:true
+   },
+   currency:{
+       type:String,
+       required:true,
+       default:'INR'
+   },
+   paymentOrderId:{
+       type:String,
+       required:true,
+   },
+   paymentId:{
+       type:String,
+       required:true
    }
 },{timestamps:true})
 

@@ -1,38 +1,92 @@
-<section class="order container mx-auto">
+<section class="order mt-20 h-full py-11 ">
     <div class="container mx-auto ">
-        <h1 class="font-bold text-xl bg-gray-50 py-4 text-center">All Orders</h1>
+        <h1 class="font-bold text-xl py-4 text-center text-white">All Orders</h1>
         <%if(messages.success){%>
-        <div id="successAlert" class="flex items-center px-4 py-3 bg-green-500 text-white 
+            <div id="successAlert" class="flex items-center px-4 py-3 bg-green-500 text-white 
               ">
-              <i class="far fa-check-circle text-xl mr-2"></i>
-           <p class="text-lg"><%=messages.success%></p>
-        </div>
-        <%}%>
+                <i class="far fa-check-circle text-xl mr-2"></i>
+                <p class="text-lg">
+                    <%=messages.success%>
+                </p>
+            </div>
+            <%}%>
     </div>
     <% if(orders.length>0){%>
-    <table class="w-full table-auto bg-white">
-        <thead>
-            <tr>
-                <th class="px-4 py-2 text-left">Oders</th>
-                <th class="px-4 py-2 text-left">Address</th>
-                <th class="px-4 py-2 text-left">Phone</th>
-                <th class="px-4 py-2 text-left">Time</th>
-                <th class="px-4 py-2 text-left">Order Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% orders.forEach((order)=>{ %>
-            <tr>
-                <td class="px-4 py-2 border"><a href="/order/<%=order._id%>"  class="text-yellow-500"><%=order._id%></a></td>
-                <td class="px-4 py-2 border"><%=order.address%></td>
-                <td class="px-4 py-2 border"><%=order.phone%></td>
-                <td class="px-4 py-2 border"><%=moment(order.createdAt).format('MMMM Do YYYY, h:mm:ss a')%></td>
-                <td class="px-4 py-2 border"><%=order.status%></td>
-            </tr>
-            <% })%>
-        </tbody>
-    </table>
-         <%}else{%>
+        <div class=" orders_wrapper py-6">
+            <div class=" flex flex-wrap ">
+            <%orders.forEach((order)=>{%>
+               <%let items=order.items%>
+                <%for(let item in items){%>
+                    <%if(items.hasOwnProperty(item)) {%>
+                    
+                        <div class="single mx-2 shadow-xl md:w-2/5 md:mx-auto ">
+                            <h2 class="id font-bold text-lg m-2">
+                               Order ID- <a href="/order/<%=order._id%>"><%=order._id%></a>
+                            </h2>
+                            <div class="flex flex-row m-2 space-around">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-400">
+                                        <%=order.createdAt%>
+                                    </span>
+                                    <h4 class="font-bold text-xl">Ordered On</h4>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-gray-400">
+                                        <%=order.createdAt%>
+                                    </span>
+                                    <% if(order.status==='delivered'){%>
+                                    <h4 class="font-bold text-xl">Delivered On </h4>
+                                    <%}else{%>
+                                        <h4 class="font-bold text-xl">To be Delivered By </h4>
+                                        <%}%>
+                                </div>
+                            </div>
+                            <div class="sub_container flex flex-row items-center space-around text-center">
+                                <img width="125px" src="/img/<%=items[item].item.image%>" alt="">
+                                <div class="flex flex-col">
+                                    <h3 class="text-black font-bold text-lg">
+                                        <%=items[item].item.name%>
+                                    </h3>
+                                    <div>
+                                        <span class="text-gray-400">
+                                            Size-<%=items[item].item.size%>,
+                                        </span>
+                                        <span class="text-gray-400">
+                                           Qty-<%=items[item].qty%>
+                                        </span>
+                                    </div>
+                                    <h3 class="text-black font-bold text-lg">AddOns</h3>
+                                    <div>
+                                        <% let addonPrice=0%>
+                                        <% if(items[item].addons){%>
+                                            <% let addons=items[item].addons; for(let addon in addons){ %>
+                                               <span class="text-black "><%=addons[addon].name%></span>
+                                               <%addonPrice=addonPrice+addons[addon].price%>
+                                           <% } }else{ %>
+                                            <span class="text-black font-bold text-lg">-</span>
+                                            <%}%>
+                                    </div>
+                                    
+                                </div>
+                                <div class=" price border-2">
+                                    <h3 class="text-center text-2xl">₹<%=items[item].item.price + addonPrice%>.00</h3>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                               <%if(order.status==='delivered'){%>
+                                <button class="Completed px-4 py-2 text-white rounded-md pointer-events-none m-2"><%=order.status%></button>
+                                <%}else{%>
+                                <button class="notCompleted px-4 py-2 text-white rounded-md pointer-events-none m-2"><%=order.status%></button>
+                                <%}%>
+                                <h4 class="paymentId font-bold">PaymentID-<%=order.paymentId%></h4>
+                            </div>
+                        </div>
+                  
+                    <%}} %>
+                <%})%>
+            </div>
+            </div>
+        <%}else{%>
             <h1 class="font-bold text-center text-2xl">No orders yet</h1>
             <%}%>
 </section>

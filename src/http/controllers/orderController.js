@@ -37,7 +37,7 @@ function orderController() {
             try {
                 //  console.log(req.body);   
                 //validate request
-                const { phone, address } = req.body;
+                const { phone, address,paymentOrderId,paymentId } = req.body;
                 if (!phone || !address) {
                     req.flash('error', 'All fields required');
                     return res.redirect('/cart')
@@ -51,8 +51,12 @@ function orderController() {
                 const order = new Order({
                     phone,
                     address,
+                    paymentOrderId,
+                    paymentId,
                     items: req.session.cart.items,
-                    customerID: custID
+                    customerID: custID,
+                    totalPrice:req.session.cart.totalPrice*100,
+                   
                 })
                 const saved = await order.save()
                 if (saved) {
@@ -63,9 +67,11 @@ function orderController() {
                     req.flash('success', 'Order Placed Successfully')
                     delete req.session.cart
                     // adding new order to admin at the same time
+                    
                     const eventEmitter = req.app.get('eventEmitter')
                     eventEmitter.emit('reflectOrder', { result, message: 'New order Placed' })
-                    res.redirect('/orders')
+                   
+                    res.json({redirect:'/orders'})
                 }
                 // Order.populate(result,{path:'customerID'},(err,result)=>{
                 //     req.flash('success', "Order Placed Successfully");

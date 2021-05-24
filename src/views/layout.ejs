@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
@@ -13,7 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js" integrity="sha512-cdV6j5t5o24hkSciVrb8Ki6FveC2SgwGfLE31+ZQRHAeSRxYhAQskLkq3dLm8ZcWe1N3vBOEYmmbhzf7NTtFFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"
+        integrity="sha512-cdV6j5t5o24hkSciVrb8Ki6FveC2SgwGfLE31+ZQRHAeSRxYhAQskLkq3dLm8ZcWe1N3vBOEYmmbhzf7NTtFFQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/style.css">
 
@@ -21,74 +24,106 @@
 </head>
 
 <body>
-    <nav class="flex items-center justify-between py-2">
+    <nav class="flex items-center justify-between py-2 fixed top-0 bg-white w-full z-10 shadow-xl">
         <div class="flex items-center">
-            <a href="/"><img src="/img/pizza.png" id="nav_logo" class="w-20 md:w-32" alt=""></a>
-            <h1 class="text-2xl md:text-4xl inline">The Pizza Store</h1>
+            <a href="/"><img src="/img/pizza.png" id="nav_logo" class="w-16 md:w-20" alt=""></a>
+            <h1 class="text-lg font-bold md:text-4xl inline">The Pizza Store</h1>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center space-around">
             <% if(user){%>
                 <% if(user.displayName){ %>
-                    <h2 class="text-gray-400 mr-12"> Welcome, <span class="text-yellow-500">
+                    <h2 class="text-gray-400 md:mr-12 md:block hidden"> Welcome, <span class="text-yellow-500">
                             <%=user.displayName%>
                         </span>
                     </h2>
                     <%}else{%>
-                        <h2 class="text-gray-400 mr-12"> Welcome, <span class="text-yellow-500">
-                            <%=user.name%>
-                        </span>
-                    </h2>
-                    <%}}%>
-                    <div>
-                        <button class="open t-6 md:t-10 p-2 "><i class="fas fa-bars"></i></button>
-                        <div class="nav-sidebar orange">
-                            <div class="nav-sidebar white">
-                                <div class="nav-sidebar black">
-                                    <button class="close p-2"><i class="fas fa-times"></i></button>
-                                    <ul class="text-white mt-10">
-                                        <li><a href="/" class="block p-6 text-center">Menu</a></li>
-                                        <li><a href="#" class="block p-6 text-center">Offers</a></li>
+                        <h2 class="text-gray-400 md:mr-12 md:block hidden"> Welcome, <span class="text-yellow-500">
+                                <%=user.name%>
+                            </span>
+                        </h2>
+                        <%}}%>
+                            <a href="/cart" class="flex items-center rounded-md p-1 bg-green-300 text-center">
+                                <h4 class="bg-white rounded-md p-2 mr-2">Cart
+                                    <i class="fas fa-shopping-cart text-black text-sm"></i>
+                                </h4>
+                                
+                                <span id="cartCounter" class="text-black font-bold mr-2">
+                                    <%= session.cart ? session.cart.totalQty : '' %>
+                                </span>
+                            </a>
+                            <div>
+                                <div class="hidden md:flex">
+                                    <ul class="text-black flex text-lg">
+                                        <li class="mx-2"><a  href="/" class="text-center">Menu</a></li>
+                                        <li class="mx-2"><a href="#" class="text-center">Offers</a></li>
                                         <% if(user) {%>
-                                            <li>
+                                            <li class="mx-2">
                                                 <form id="logoutForm" action="/logout" method="POST">
                                                     <a onclick="document.getElementById('logoutForm').submit()" href="#"
-                                                        class="block p-6 text-center">Logout</a>
+                                                        class=" text-center">Logout</a>
                                                 </form>
                                             </li>
-                                            <li><a href="/orders" class="block p-6 text-center">Orders</a></li>
+                                            <li class="mx-2"><a href="/orders" class=" text-center">Orders</a></li>
                                             <%}else{%>
-                                                <li><a href="/register" class="block p-6 text-center">Register</a></li>
-                                                <li><a href="/login" class="block p-6 text-center">Login</a></li>
+                                                <li class="mx-2"><a href="/register" class=" text-center">Register</a>
+                                                </li>
+                                                <li class="mx-2 bg-transparent"><a href="/login"
+                                                        class="text-center">Login</a></li>
                                                 <%}%>
-                                                    <li><a href="/cart" class="block p-6 text-center">
-                                                            <span id="cartCounter" class="text-white font-bold pr-2">
-                                                                <%= session.cart ? session.cart.totalQty : '' %>
-                                                            </span>
-                                                            <i class="fas fa-shopping-cart text-white text-sm"></i>
-                                                        </a>
-                                                    </li>
+
                                     </ul>
-
                                 </div>
+
+                                <button class="open md:t-10 p-2 md:hidden"><i class="fas fa-bars"></i></button>
+                                <div class="nav-sidebar orange">
+                                    <div class="nav-sidebar white">
+                                        <div class="nav-sidebar black">
+                                            <button class="close p-2 md:hidden"><i class="fas fa-times"></i></button>
+                                            <ul class="text-white mt-10">
+                                                <li><a href="/" class="block p-6 text-center">Menu</a></li>
+                                                <li><a href="#" class="block p-6 text-center">Offers</a></li>
+                                                <% if(user) {%>
+                                                    <li>
+                                                        <form id="logoutForm" action="/logout" method="POST">
+                                                            <a onclick="document.getElementById('logoutForm').submit()"
+                                                                href="#" class="block p-6 text-center">Logout</a>
+                                                        </form>
+                                                    </li>
+                                                    <li><a href="/orders" class="block p-6 text-center">Orders</a></li>
+                                                    <%}else{%>
+                                                        <li><a href="/register"
+                                                                class="block p-6 text-center">Register</a></li>
+                                                        <li><a href="/login" class="block p-6 text-center">Login</a>
+                                                        </li>
+                                                        <%}%>
+
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
-                        </div>
-
-
-                    </div>
         </div>
     </nav>
     <%- body %>
 
-    <footer class="text-center text-gray-200 bg-black py-2">
-        Pizza-Store made with ♥ by Pranjal Sharma
+        <footer class="text-center text-gray-200 bg-black py-2 top-full">
+            Pizza-Store made with ♥ by Pranjal Sharma
 
-Copyright 2018-2021 - All rights reserved.
-    </footer>
+            Copyright 2018-2021 - All rights reserved.
+        </footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
             integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
             crossorigin="anonymous"></script>
         <script type="text/JavaScript" src=" https://MomentJS.com/downloads/moment.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <script src="/js/index.js"></script>
 
 </body>

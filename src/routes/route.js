@@ -3,7 +3,9 @@ const homeController = require("../http/controllers/homeController");
 const authController = require("../http/controllers/authController");
 const cartController = require("../http/controllers/cartController");
 const orderController = require("../http/controllers/orderController");
+const addOnController=require('../http/controllers/addOnsController')
 const adminController = require("../http/controllers/adminController");
+const paymentController=require("../http/controllers/paymentContoller")
 const isLoggedin = require("../http/middlewares/restricted");
 const onlyAdmin = require("../http/middlewares/onlyAdmin");
 const User = require("../models/user");
@@ -13,6 +15,7 @@ const passportLocal = require("../config/passport_local");
 const passportGoogleAuth = require("../config/passportGoogleAuth");
 const passportFacebook = require('../config/passportFacebook');
 
+
 function routes(app) {
 
   app.get('/', homeController().index);
@@ -20,10 +23,17 @@ function routes(app) {
   app.get('/cart', cartController().index);
   app.post('/update-cart', cartController().update);
   app.post('/remove-cart', cartController().remove);
+  app.post('/deleteItem',cartController().delete)
+  //addons
+  app.post('/addOns',addOnController().add)
+  app.post('/removeAddOns',addOnController().remove)
   //order
-  app.get('/orders', isLoggedin, orderController().orders);
+  app.get('/orders', isLoggedin,orderController().orders);
   app.post('/orders', orderController().postOrder);
   app.get('/order/:id', isLoggedin, orderController().order);
+//payment
+  app.post('/payment/order',paymentController().order)
+  app.post('/payment/order/success',paymentController().verify)
   //auth
   app.get('/login', authController().loginType)
   app.get('/register', authController().register)

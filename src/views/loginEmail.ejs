@@ -1,6 +1,11 @@
-<section class="loginEmail flex items-center justify-center">
-    <div class="w-full max-w-xl">
-        <form action="/login" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+<section class="loginEmail md:flex items-center justify-center mt-20 h-full">
+  <div>
+     <img class=" md:w-2/3" src="/img/login.svg" alt="">
+  </div>
+    <div class="w-full md:w-1/2 bg-white shadow-xl md:mr-12 py-8 px-6 rounded-2xl">
+      <h3 class="text-lg font-bold ">Welcome!</h3>
+      <h2 class="text-lg font-bold text-gray-300">Login to continue</h2>
+        <form action="/login" method="POST" class="py-4">
            <% if(messages.message) { %>
              <span class="text-red-500 rext-sm"><%=messages.message %></span>
           <%}%>
@@ -10,7 +15,7 @@
             </label>
             
               <input name="email" 
-              class="w-full text-gray-700 outline-none "
+              class="w-full text-gray-700 outline-none bg-transparent"
               id="username" type="email" placeholder="Username">
               <div class="Border"></div>
           </div>
@@ -21,12 +26,12 @@
             </label>
             
               <input name="password"
-              class="w-full text-gray-700 outline-none "
+              class="w-full text-gray-700 outline-none bg-transparent"
               id="password" type="password" placeholder="******">
               <div class="Border"></div>
           </div>
           <div class="flex items-center justify-between">
-            <button class="addtocart text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit">
               Sign In
             </button>
@@ -36,7 +41,7 @@
           </div>
         </form>
         <p class="text-center text-gray-500 text-xs">
-          &copy;2020 Acme Corp. All rights reserved.
+          &copy;2021 All rights reserved.
         </p>
       </div>
 </section>

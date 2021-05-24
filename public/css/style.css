@@ -10,12 +10,40 @@
     --ggray:#ccc;
     --smooth: all .3s linear;
 }
+/* for custom Scroll bar */
+::-webkit-scrollbar {
+    width: 5px;
+    height:3px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: lightgray; 
+    
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+html{
+    scroll-behavior: smooth;
+    /* width */
+
+}
 body{
     font-family: 'Lato',sans-serif;
     -webkit-font-smoothing:antialiased;
     color:var(--dark);
     font-family: 'Chivo', sans-serif;
 }
+
+/* home + navigation */
 nav h1{
     font-family: 'Playfair Display', serif;
     
@@ -65,11 +93,7 @@ nav button{
     padding:5px;
 }
 nav button.open{
-    position:fixed;
-    right:20px;
-    top:1.5rem;
     font-size:20px;
-    z-index:10
 }
 nav button.close{
     color:white;
@@ -83,15 +107,9 @@ nav button.close{
 nav ul li{
     transition:var(--smooth);
 }
-nav li:last-child {
-    background-color: var(--primary);
-}
 nav li:hover{
     color:var(--primary);
     background-color:var(--pure);
-}
-nav li:last-child:hover{
-    background-color: var(--primary-hover);
 }
 
 section.hero{
@@ -150,6 +168,7 @@ section.menu .slideshow_container .menu_button{
     z-index:5;
     cursor:pointer
 }
+
 .menu_left{
     position:absolute;
     top:50%;
@@ -175,9 +194,6 @@ section.menu .slideshow_container .menu_button{
     transition:var(--smooth);
     outline:none;
 }
-.addtocart:hover,.removeFromCart:hover{
-    background-color: #d0bdff;
-}
 .addtocart:active,.removeFromCart:active{
     background-color:#33CC4A;
     border-color: var(--primary);
@@ -187,10 +203,6 @@ section.menu .slideshow_container .menu_button{
 section.cart{
     background-color: var(--secondary);
 }
-.amount{
-    color:var(--primary);
-}
-
 
 section.loginEmail{
     background-color: var(--secondary);
@@ -205,7 +217,7 @@ section.loginEmail a{
     width:100%;
     height: 2px;
     left:0%;
-    background-color: var(--primary);
+    background-color:lightskyblue;
     transition:transform .3s ease-in-out;
     transform: scaleX(0);
     transform-origin: center
@@ -214,7 +226,7 @@ input:focus+.Border{
     transform: scaleX(1);
 }
 
-
+/* single order status*/
 section.status{
     background-color: var(--secondary);
     min-height: calc(100vh - 120px);
@@ -290,6 +302,74 @@ section.admin #alert{
     display:none;
 }
 
+/* All orders page  */
+section.order {
+    background-image: url("https://1.bp.blogspot.com/-Wpc6EQdjui8/XXP_uaQsddI/AAAAAAAADL8/c7hMZ9QPRwcELvJVnBth3EA2wD_cVeIwwCLcBGAs/s1600/Flat_colorful_background.jpg");
+    object-fit: cover;
+    /* border-top-left-radius: 80px;
+    border-top-right-radius: 80px; */
+}
+section.order .orders_wrapper{
+     background-color: #fefbff;
+     border-radius: 40px;
+}
+section.order .single{
+    border:2px solid lightgray;
+    border-radius: 10px;
+    padding:10px;
+}
+section.order .single .id,section.order .single .paymentId{
+    color:#5f2cc1
+}
+section.order .single .sub_container{
+    border:1px solid lightgray;
+    border-radius: 10px;
+    padding:10px;
+}
+section.order .single .sub_container .price{
+    color:#5f2cc1;
+    background-color: #e3d9f6;
+}
+section.order .single button.notCompleted{
+    background-color: #d52acb;
+}
+section.order .single button.Completed{
+    background-color: gray
+}
+
+section.loginEmail{
+    background-image: url('');
+    background-size: cover;
+}
+
+section.cart .cartUpperGreen{
+    clip-path: polygon(50% 0%, 100% 0, 100% 75%, 0 99%, 0 0);
+}
+
+section.cart .RemoveaddonButton{
+    background-color :#ba25b1
+}
+
+section.cart #rzp-button1{
+    border:1px solid lightgray;
+    border-radius: 5px;
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media(max-width:1060px) {
     table{
@@ -300,16 +380,5 @@ section.admin #alert{
 }
   
 
-@keyframes animate{
-    0%{
-       transform:scale(1);
-    }
-    50%{
-        transform:scale(1.5);
-    }
-    100%{
-        transform:scale(1);
-    }
-}
 
 

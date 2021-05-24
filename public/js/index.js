@@ -1,6 +1,19 @@
-if(performance.navigation.type == 2){
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBgQNe0Ffj6ronM5wh0VJboBkrds8RVMfE",
+    authDomain: "phone-auth-79006.firebaseapp.com",
+    projectId: "phone-auth-79006",
+    storageBucket: "phone-auth-79006.appspot.com",
+    messagingSenderId: "785787014138",
+    appId: "1:785787014138:web:209275be93ccb95e8d7243"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+if (performance.navigation.type == 2) {
     location.reload();
- }
+}
 
 const addToCart = document.querySelectorAll('.addtocart');
 const removeFromCart = document.querySelectorAll('.removeFromCart');
@@ -8,10 +21,6 @@ const cartCounter = document.querySelector("#cartCounter")
 const slideshow = document.querySelectorAll('.slideshow')
 
 
-//const menuButton=document.querySelectorAll()
-// const sliderContainer = document.querySelector('.slideshow_container')
-
-//console.log(document.querySelectorAll(' .slideshow'))
 let socket = io();
 
 //for nav
@@ -22,14 +31,12 @@ const sidebars = document.querySelectorAll('.nav-sidebar')
 
 openButton.addEventListener('click', (e) => {
     //add nav-visble class on sidebars
-    // console.log('open')
     sidebars.forEach((sidebar) => {
         sidebar.classList.add('nav-visible');
     })
 })
 closeButton.addEventListener('click', (e) => {
     //remove vnav-isble class from sidebars
-    // console.log('close')
     sidebars.forEach((sidebar) => {
         sidebar.classList.remove('nav-visible');
     })
@@ -37,110 +44,103 @@ closeButton.addEventListener('click', (e) => {
 
 document.addEventListener('click', (e) => {
     //remove nav-visible class from sidebars on clicking outside of sidebars
-    //console.log('outside')
     if (e.target.className !== 'fas fa-bars' && sidebars[0].classList.contains('nav-visible')) {
         sidebars.forEach((sidebar) => {
             sidebar.classList.remove('nav-visible');
         })
     }
 })
-// window.onscroll = function (e) {
-//     console.log(window.scrollY); // Value of scroll Y in px
-// };
+
 //menu slideshow
 
-
 if (window.location.pathname === '/') {
-   
 
-    const menuRightButton=document.querySelectorAll('.menu_right i')
-    const menuLeftButton=document.querySelectorAll('.menu_left i')
-    
-   //arrow key functionality
-    menuRightButton.forEach((btn)=>{  
+
+    const menuRightButton = document.querySelectorAll('.menu_right i')
+    const menuLeftButton = document.querySelectorAll('.menu_left i')
+
+    //arrow key functionality
+    menuRightButton.forEach((btn) => {
         btn.addEventListener('click', (e) => {
-             
-          if(btn.classList.contains('right0')){
-            var p = slideshow[0].style.marginLeft; // return value in px; i.e 50px
-            console.log(p.length)
-             p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
-             slideshow[0].style.marginLeft = (+p)- 100 +'%' // convert p to number and add 10
-          }
-          else if(btn.classList.contains('right1')){
-            var p = slideshow[1].style.marginLeft; // return value in px; i.e 50px
-            console.log(p)
-             p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
-             slideshow[1].style.marginLeft = (+p) - 100 +'%' // convert p to number and add 10
-          }
-          else if(btn.classList.contains('right2')){
-            var p = slideshow[2].style.marginLeft; // return value in px; i.e 50px
-            console.log(p)
-             p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
-             slideshow[2].style.marginLeft = (+p) - 100 +'%' // convert p to number and add 10
-          }
-          else if(btn.classList.contains('right3')){
-            var p = slideshow[3].style.marginLeft; // return value in px; i.e 50px
-            console.log(p)
-             p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
-             slideshow[3].style.marginLeft = (+p) - 100 +'%' // convert p to number and add 10
-          }
+
+            if (btn.classList.contains('right0')) {
+                var p = slideshow[0].style.marginLeft; // return value in px; i.e 50px
+                console.log(p.length)
+                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                slideshow[0].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+            }
+            else if (btn.classList.contains('right1')) {
+                var p = slideshow[1].style.marginLeft; // return value in px; i.e 50px
+                console.log(p)
+                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                slideshow[1].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+            }
+            else if (btn.classList.contains('right2')) {
+                var p = slideshow[2].style.marginLeft; // return value in px; i.e 50px
+                console.log(p)
+                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                slideshow[2].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+            }
+            else if (btn.classList.contains('right3')) {
+                var p = slideshow[3].style.marginLeft; // return value in px; i.e 50px
+                console.log(p)
+                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                slideshow[3].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+            }
+        })
     })
-  })
-    
-    menuLeftButton.forEach((btn)=>{
+
+    menuLeftButton.forEach((btn) => {
         btn.addEventListener('click', (e) => {
-            if(btn.classList.contains('left0')){
+            if (btn.classList.contains('left0')) {
                 var p = slideshow[0].style.marginLeft; // return value in px; i.e 50px
                 console.log(p)
-                 p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
-                 slideshow[0].style.marginLeft = (+p) + 100 +'%' // convert p to number and add 10
-              }
-              else if(btn.classList.contains('left1')){
+                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                slideshow[0].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
+            }
+            else if (btn.classList.contains('left1')) {
                 var p = slideshow[1].style.marginLeft; // return value in px; i.e 50px
                 console.log(p)
 
-                 p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
-                 slideshow[1].style.marginLeft = (+p) + 100 +'%' // convert p to number and add 10
-              }
-              else if(btn.classList.contains('left2')){
+                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                slideshow[1].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
+            }
+            else if (btn.classList.contains('left2')) {
                 var p = slideshow[2].style.marginLeft; // return value in px; i.e 50px
                 console.log(p)
 
-                 p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
-                 slideshow[2].style.marginLeft = (+p) + 100 +'%' // convert p to number and add 10
-              }
-              else if(btn.classList.contains('left3')){
+                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                slideshow[2].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
+            }
+            else if (btn.classList.contains('left3')) {
                 var p = slideshow[3].style.marginLeft; // return value in px; i.e 50px
                 console.log(p)
 
-                 p = p.substr(0,p.length-1); // remove px ie : 50px becomes 50
-                 slideshow[3].style.marginLeft = (+p)+ 100 +'%' // convert p to number and add 10
-              }
+                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                slideshow[3].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
+            }
         })
     })
-    
+
     //sliders animation
 
-   let observer=new IntersectionObserver((entries,observer)=>{
-       entries.forEach((entry)=>{
-           if(entry.isIntersecting){
-               let item=entry.target;
-               item.style.marginLeft="0%"
-           }
-       })        
-   },{
-         rootMargin:'0px 0px 0px 0px',
-         threshold:0
-   })
-    
-   slideshow.forEach((item)=>{
-     observer.observe(item)
-   })
-    
+    let observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                let item = entry.target;
+                item.style.marginLeft = "0%"
+            }
+        })
+    }, {
+        rootMargin: '0px 0px 0px 0px',
+        threshold: 0
+    })
 
-    
+    slideshow.forEach((item) => {
+        observer.observe(item)
+    })
 
- 
+
 
     //cart counter
     const updateCart = (pizza) => {
@@ -148,16 +148,15 @@ if (window.location.pathname === '/') {
             then((res) => {
                 //console.log(res);
                 cartCounter.innerText = res.data.cart.totalQty;
-                let pizzaID=pizza._id.toString()
+                let pizzaID = pizza._id.toString()
                 //console.log(res.data.cart.items[pizzaID])
 
-                if(res.data.cart.items[pizzaID]){
+                if (res.data.cart.items[pizzaID]) {
                     let individualCounter = document.querySelectorAll('.individualCart')
-                   individualCounter.forEach((indi)=>{
-                        if(indi.dataset.id===pizzaID)
-                        {
-                            indi.innerHTML=res.data.cart.items[pizzaID].qty
-                             //console.log(res.data.cart.items[pizzaID].qty)
+                    individualCounter.forEach((indi) => {
+                        if (indi.dataset.id === pizzaID) {
+                            indi.innerHTML = res.data.cart.items[pizzaID].qty
+                            //console.log(res.data.cart.items[pizzaID].qty)
                         }
                     })
                 }
@@ -166,52 +165,52 @@ if (window.location.pathname === '/') {
     const removeCart = (pizza) => {
         axios.post('/remove-cart', pizza).
             then((res) => {
-                console.log(res);
+               // console.log(res);
                 //cartCounter.innerText = res.data.totalqty;
                 //console.log(res);
-                let pizzaID=pizza._id.toString()
+                let pizzaID = pizza._id.toString()
 
-                if(res.data.cart){
-                cartCounter.innerText = res.data.cart.totalQty;
-                if(res.data.cart.items[pizzaID]){
-                    let individualCounter = document.querySelectorAll('.individualCart')
-                   individualCounter.forEach((indi)=>{
-                        if(indi.dataset.id===pizzaID) 
-                            indi.innerHTML=res.data.cart.items[pizzaID].qty
+                if (res.data.cart) {
+                    cartCounter.innerText = res.data.cart.totalQty;
+                    if (res.data.cart.items[pizzaID]) {
+                        let individualCounter = document.querySelectorAll('.individualCart')
+                        individualCounter.forEach((indi) => {
+                            if (indi.dataset.id === pizzaID)
+                                indi.innerHTML = res.data.cart.items[pizzaID].qty
                             //     console.log(res.data.cart.items[pizzaID].qty)
-                    })
+                        })
+                    }
                 }
-              }
-                else if(res.data.cartTemp){
-                cartCounter.innerText ='0';
-                if(res.data.cartTemp){
-                    let individualCounter = document.querySelectorAll('.individualCart')
-                   individualCounter.forEach((indi)=>{
-                        if(indi.dataset.id===pizzaID)
-                            indi.innerHTML='0'
+                else if (res.data.cartTemp) {
+                    cartCounter.innerText = '0';
+                    if (res.data.cartTemp) {
+                        let individualCounter = document.querySelectorAll('.individualCart')
+                        individualCounter.forEach((indi) => {
+                            if (indi.dataset.id === pizzaID)
+                                indi.innerHTML = '0'
                             //     console.log(res.data.cart.items[pizzaID].qty
-                    })
+                        })
+                    }
                 }
-            }
-               // console.log(res.data.cart.items[pizzaID])
+                // console.log(res.data.cart.items[pizzaID])
 
-                
-    
+
+
             }).catch(err => console.log(err));
     }
     //addtocart functionality
-    addToCart.forEach((btn,index) => {
+    addToCart.forEach((btn, index) => {
         btn.addEventListener('click', (e) => {
             const pizza = JSON.parse(btn.dataset.pizza);
-            
+
             updateCart(pizza);
-           
+
 
         })
     })
     //remove from cart functionality
-    removeFromCart.forEach((btn)=>{
-      btn.addEventListener('click', (e) => {
+    removeFromCart.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
             const pizza = JSON.parse(btn.dataset.pizza);
 
             removeCart(pizza);
@@ -219,13 +218,128 @@ if (window.location.pathname === '/') {
     })
 }
 
+//phone number verification
+else if (window.location.pathname === '/cart') {
+    //payment gateway
+
+    async function paymentHandler() {
+        try {
+            //console.log('hello')
+            const rslt = await axios.post('/payment/order')
+            //console.log(rslt)
+            if (!rslt) {
+                alert('Are Your Online?')
+                return;
+            }
+            const { amount, id: order_id, currency } = rslt.data
+
+            const options = {
+                key: "rzp_test_mTGKc1dmNTnXYK", // Enter the Key ID generated from the Dashboard
+                image: '/img/pizza_svg.svg',
+                currency: currency,
+                name: "PeppiPerry-Pizza House",
+                description: "Test Transaction",
+                order_id: order_id,
+                handler: async function (response) {
+                    const data = {
+                        orderCreationId: order_id,
+                        razorpayPaymentId: response.razorpay_payment_id,
+                        razorpayOrderId: response.razorpay_order_id,
+                        razorpaySignature: response.razorpay_signature,
+                    };
+
+                    const result = await axios.post("/payment/order/success", data);
+                    //console.log(result)
+                    if (result.data.msg === 'success') {
+                        const saveOrderDB = await axios.post('/orders',
+                            { phone: '12321321', address: 'delhi haizkhas', 'paymentOrderId': result.data.orderId, 'paymentId': result.data.paymentId })//we return '/orders' if stored properly
+
+                        window.location.href = 'http://localhost:5000' + saveOrderDB.data.redirect;     //localhost:5000/orders
+                    }
+                    else window.alert(result.data.msg)
+                },
+                prefill: {
+                    name: "Pranjal Sharma",
+                    email: "roverboy773@gmail.com",
+                    contact: "9999999999",
+                },
+                notes: {
+                    address: "DLF City,Gurgaon",
+                },
+                theme: {
+                    color: "#6850dc",
+                },
+            };
+            const paymentObject = new window.Razorpay(options);
+            paymentObject.open();
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const addons = document.querySelectorAll('section.cart .addonButton')
+    //console.log(addons)
+    addons.forEach((addon) => {
+        addon.addEventListener('click', async (e) => {
+         
+            if (addon.innerText === 'Add') {
+               // console.log(addon.innerHTML,addon.innerText)
+                let details = (addon.dataset.addon).split(' ')
+                const addonDetails = JSON.parse(details[0])
+                const pizzaId = details[1]
+
+                const data = { addonDetails, pizzaId }
+                const result = await axios.post('/addOns', data)
+                if (result.data.msg === 'added') {
+                    addon.style.backgroundColor = "#ba25b1"
+                    addon.innerHTML = "Remove"
+                    document.querySelector('section.cart .amount').innerHTML='₹'+result.data.totalPrice
+                }
+            } else {
+                //console.log(addon.innerHTML,addon.innerText)
+                let details = (addon.dataset.addon).split(' ')
+                const addonDetails = JSON.parse(details[0])
+                const pizzaId = details[1]
+
+                const data = { addonDetails, pizzaId }
+                const result = await axios.post('/removeAddOns', data)
+                if (result.data.msg === 'removed') {
+                    addon.style.backgroundColor = '#2ed19a'
+                    addon.innerText = "Add"
+                    document.querySelector('section.cart .amount').innerHTML='₹'+result.data.totalPrice
+                }
+            }
+        })
+    })
+
+    const removeItems=document.querySelectorAll('section.cart .removeItem')
+
+    removeItems.forEach((removeItem)=>{
+        removeItem.addEventListener('click',async(e)=>{
+            const pizza=JSON.parse(removeItem.dataset.pizza)
+            console.log(pizza)
+            const result=await axios.post('/deleteItem',{pizza})
+            console.log(result)
+            if(result.data.msg==='deleted')
+            location.reload()
+        })    
+    })
+
+    if (document.getElementById('rzp-button1'))
+        document.getElementById('rzp-button1').addEventListener('click', paymentHandler)
+}
+
+
 //customer orders page alert
+
 const orderAlert = document.querySelector('#successAlert');
 if (orderAlert) {
     setTimeout(() => {
         orderAlert.remove();
     }, 2000)
 }
+
 
 //render admin order's page Tablebody
 let OrdersArray = [];
@@ -322,7 +436,7 @@ if (order)
 function orderTracker(updatedOrder) {
 
     let done = true;
-    console.log(updatedOrder);
+    //console.log(updatedOrder);
 
     //reset status
     lists.forEach((list) => {
@@ -360,11 +474,12 @@ function orderTracker(updatedOrder) {
         }
     })
 }
+
 //  Socket.io
 if (order) {
     socket.emit('join', `order_${order._id}`);
 }
-if (window.location.pathname.includes('/admin/orders')) {
+if (window.location.pathname.includes('/admin/orders')) {//socket working here
 
     admin();
     socket.on('reflectOrder1', (data) => {
@@ -386,7 +501,7 @@ if (window.location.pathname.includes('/admin/orders')) {
 
 
 
-if (window.location.pathname.includes('/order/')) {
+if (window.location.pathname.includes('/order/')) { //socket working here
     socket.on('orderUpdated', (data) => {
         let updatedOrder = { ...data };
         // updatedOrder.updatedAt = moment(data.updatedAt).format('MMMM Do YYYY, h:mm:ss a');
