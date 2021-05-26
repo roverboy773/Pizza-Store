@@ -1,15 +1,6 @@
 
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBgQNe0Ffj6ronM5wh0VJboBkrds8RVMfE",
-    authDomain: "phone-auth-79006.firebaseapp.com",
-    projectId: "phone-auth-79006",
-    storageBucket: "phone-auth-79006.appspot.com",
-    messagingSenderId: "785787014138",
-    appId: "1:785787014138:web:209275be93ccb95e8d7243"
-};
 
-firebase.initializeApp(firebaseConfig);
 
 if (performance.navigation.type == 2) {
     location.reload();
