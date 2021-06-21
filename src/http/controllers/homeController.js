@@ -9,7 +9,7 @@ function homeController(){
            const  pasta=await menu.find({category:'pasta'});
            const breads=await menu.find({category:'bread'});
            const deserts=await menu.find({category:'desert'});
-           
+           //console.log(pizzas,pasta,breads,deserts)
            res.render('home',{Menu:{pizzas,pasta,breads,deserts}});
         }
     }

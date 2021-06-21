@@ -55,7 +55,7 @@ if (window.location.pathname === '/') {
             //console.log(document.querySelectorAll('.slideshow_item.child0'))
             if (btn.classList.contains('right0')) {
                 slide0=slide0+1;
-                if (document.querySelectorAll('.slideshow_item.child0').length > slide0) {
+                if (document.querySelectorAll('.slideshow_item.c0').length > slide0) {
                     var p = slideshow[0].style.marginLeft; // return value in px; i.e 50px
                     //console.log(p)
                     p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
@@ -67,7 +67,7 @@ if (window.location.pathname === '/') {
             }
             else if (btn.classList.contains('right1')) {
                 slide1=slide1+1;
-                if (document.querySelectorAll('.slideshow_item.child1').length > slide1) {
+                if (document.querySelectorAll('.slideshow_item.c1').length > slide1) {
                     var p = slideshow[1].style.marginLeft; // return value in px; i.e 50px
                    // console.log(p)
                     p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
@@ -79,7 +79,7 @@ if (window.location.pathname === '/') {
             }
             else if (btn.classList.contains('right2')) {
                 slide2=slide2+1;
-                if (document.querySelectorAll('.slideshow_item.child2').length > slide2) {
+                if (document.querySelectorAll('.slideshow_item.c2').length > slide2) {
                     var p = slideshow[2].style.marginLeft; // return value in px; i.e 50px
                    // console.log(p)
                     p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
@@ -91,7 +91,7 @@ if (window.location.pathname === '/') {
             }
             else if (btn.classList.contains('right3')) {
                 slide3=slide3+1;
-                if (document.querySelectorAll('.slideshow_item.child3').length > slide3) {
+                if (document.querySelectorAll('.slideshow_item.c3').length > slide3) {
                     var p = slideshow[3].style.marginLeft; // return value in px; i.e 50px
                     //console.log(p)
                     p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
@@ -252,7 +252,7 @@ else if (window.location.pathname === '/cart') {
             const { amount, id: order_id, currency } = rslt.data
 
             const options = {
-                key: process.env.RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
+                key:'rzp_test_wpzo4lxSVR4vpg', // Enter the Key ID generated from the Dashboard
                 image: '/img/pizza_svg.svg',
                 currency: currency,
                 name: "PeppiPerry-Pizza House",
