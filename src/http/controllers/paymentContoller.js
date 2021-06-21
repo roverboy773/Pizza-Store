@@ -21,7 +21,7 @@ function paymentController() {
 
                 res.json(order);
             } catch (err) {
-                res.status(500).send(error);
+                res.status(500).send(err);
             }
         },
         async verify(req, res) {
