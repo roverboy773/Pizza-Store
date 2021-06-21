@@ -329,6 +329,7 @@ section.order .single .sub_container{
 section.order .single .sub_container .price{
     color:#5f2cc1;
     background-color: #e3d9f6;
+    
 }
 section.order .single button.notCompleted{
     background-color: #d52acb;

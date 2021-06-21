@@ -1,16 +1,5 @@
 
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBgQNe0Ffj6ronM5wh0VJboBkrds8RVMfE",
-    authDomain: "phone-auth-79006.firebaseapp.com",
-    projectId: "phone-auth-79006",
-    storageBucket: "phone-auth-79006.appspot.com",
-    messagingSenderId: "785787014138",
-    appId: "1:785787014138:web:209275be93ccb95e8d7243"
-};
-
-firebase.initializeApp(firebaseConfig);
-
 if (performance.navigation.type == 2) {
     location.reload();
 }
@@ -60,32 +49,57 @@ if (window.location.pathname === '/') {
     const menuLeftButton = document.querySelectorAll('.menu_left i')
 
     //arrow key functionality
+    let slide0 = 0, slide1 = 0, slide2 = 0, slide3 = 0
     menuRightButton.forEach((btn) => {
         btn.addEventListener('click', (e) => {
-
+            //console.log(document.querySelectorAll('.slideshow_item.child0'))
             if (btn.classList.contains('right0')) {
-                var p = slideshow[0].style.marginLeft; // return value in px; i.e 50px
-                console.log(p.length)
-                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                slideshow[0].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                slide0=slide0+1;
+                if (document.querySelectorAll('.slideshow_item.child0').length > slide0) {
+                    var p = slideshow[0].style.marginLeft; // return value in px; i.e 50px
+                    //console.log(p)
+                    p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                    slideshow[0].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                } else {
+                    slideshow[0].style.marginLeft = '0%'
+                    slide0=0
+                }
             }
             else if (btn.classList.contains('right1')) {
-                var p = slideshow[1].style.marginLeft; // return value in px; i.e 50px
-                console.log(p)
-                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                slideshow[1].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                slide1=slide1+1;
+                if (document.querySelectorAll('.slideshow_item.child1').length > slide1) {
+                    var p = slideshow[1].style.marginLeft; // return value in px; i.e 50px
+                   // console.log(p)
+                    p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                    slideshow[1].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                } else {
+                    slideshow[1].style.marginLeft = '0%'
+                    slide1=0
+                }
             }
             else if (btn.classList.contains('right2')) {
-                var p = slideshow[2].style.marginLeft; // return value in px; i.e 50px
-                console.log(p)
-                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                slideshow[2].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                slide2=slide2+1;
+                if (document.querySelectorAll('.slideshow_item.child2').length > slide2) {
+                    var p = slideshow[2].style.marginLeft; // return value in px; i.e 50px
+                   // console.log(p)
+                    p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                    slideshow[2].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                } else {
+                    slideshow[2].style.marginLeft = '0%'
+                    slide2=0
+                }
             }
             else if (btn.classList.contains('right3')) {
-                var p = slideshow[3].style.marginLeft; // return value in px; i.e 50px
-                console.log(p)
-                p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                slideshow[3].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                slide3=slide3+1;
+                if (document.querySelectorAll('.slideshow_item.child3').length > slide3) {
+                    var p = slideshow[3].style.marginLeft; // return value in px; i.e 50px
+                    //console.log(p)
+                    p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                    slideshow[3].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                } else {
+                    slideshow[3].style.marginLeft = '0%'
+                    slide3=0
+                }
             }
         })
     })
@@ -94,29 +108,33 @@ if (window.location.pathname === '/') {
         btn.addEventListener('click', (e) => {
             if (btn.classList.contains('left0')) {
                 var p = slideshow[0].style.marginLeft; // return value in px; i.e 50px
-                console.log(p)
+                //console.log(p)
                 p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                if(p!=0)
                 slideshow[0].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
             }
             else if (btn.classList.contains('left1')) {
                 var p = slideshow[1].style.marginLeft; // return value in px; i.e 50px
-                console.log(p)
+               // console.log(p)
 
                 p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                if(p!=0)
                 slideshow[1].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
             }
             else if (btn.classList.contains('left2')) {
                 var p = slideshow[2].style.marginLeft; // return value in px; i.e 50px
-                console.log(p)
+               // console.log(p)
 
                 p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                if(p!=0)
                 slideshow[2].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
             }
             else if (btn.classList.contains('left3')) {
                 var p = slideshow[3].style.marginLeft; // return value in px; i.e 50px
-                console.log(p)
+                //console.log(p)
 
                 p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
+                if(p!=0)
                 slideshow[3].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
             }
         })
@@ -165,7 +183,7 @@ if (window.location.pathname === '/') {
     const removeCart = (pizza) => {
         axios.post('/remove-cart', pizza).
             then((res) => {
-               // console.log(res);
+                // console.log(res);
                 //cartCounter.innerText = res.data.totalqty;
                 //console.log(res);
                 let pizzaID = pizza._id.toString()
@@ -226,7 +244,7 @@ else if (window.location.pathname === '/cart') {
         try {
             //console.log('hello')
             const rslt = await axios.post('/payment/order')
-            //console.log(rslt)
+            console.log(rslt)
             if (!rslt) {
                 alert('Are Your Online?')
                 return;
@@ -241,6 +259,7 @@ else if (window.location.pathname === '/cart') {
                 description: "Test Transaction",
                 order_id: order_id,
                 handler: async function (response) {
+                    console.log(response)
                     const data = {
                         orderCreationId: order_id,
                         razorpayPaymentId: response.razorpay_payment_id,
@@ -249,7 +268,7 @@ else if (window.location.pathname === '/cart') {
                     };
 
                     const result = await axios.post("/payment/order/success", data);
-                    //console.log(result)
+                    console.log(result)
                     if (result.data.msg === 'success') {
                         const saveOrderDB = await axios.post('/orders',
                             { phone: '12321321', address: 'delhi haizkhas', 'paymentOrderId': result.data.orderId, 'paymentId': result.data.paymentId })//we return '/orders' if stored properly
@@ -282,9 +301,9 @@ else if (window.location.pathname === '/cart') {
     //console.log(addons)
     addons.forEach((addon) => {
         addon.addEventListener('click', async (e) => {
-         
+
             if (addon.innerText === 'Add') {
-               // console.log(addon.innerHTML,addon.innerText)
+                // console.log(addon.innerHTML,addon.innerText)
                 let details = (addon.dataset.addon).split(' ')
                 const addonDetails = JSON.parse(details[0])
                 const pizzaId = details[1]
@@ -294,7 +313,7 @@ else if (window.location.pathname === '/cart') {
                 if (result.data.msg === 'added') {
                     addon.style.backgroundColor = "#ba25b1"
                     addon.innerHTML = "Remove"
-                    document.querySelector('section.cart .amount').innerHTML='₹'+result.data.totalPrice
+                    document.querySelector('section.cart .amount').innerHTML = '₹' + result.data.totalPrice
                 }
             } else {
                 //console.log(addon.innerHTML,addon.innerText)
@@ -307,23 +326,23 @@ else if (window.location.pathname === '/cart') {
                 if (result.data.msg === 'removed') {
                     addon.style.backgroundColor = '#2ed19a'
                     addon.innerText = "Add"
-                    document.querySelector('section.cart .amount').innerHTML='₹'+result.data.totalPrice
+                    document.querySelector('section.cart .amount').innerHTML = '₹' + result.data.totalPrice
                 }
             }
         })
     })
 
-    const removeItems=document.querySelectorAll('section.cart .removeItem')
+    const removeItems = document.querySelectorAll('section.cart .removeItem')
 
-    removeItems.forEach((removeItem)=>{
-        removeItem.addEventListener('click',async(e)=>{
-            const pizza=JSON.parse(removeItem.dataset.pizza)
+    removeItems.forEach((removeItem) => {
+        removeItem.addEventListener('click', async (e) => {
+            const pizza = JSON.parse(removeItem.dataset.pizza)
             console.log(pizza)
-            const result=await axios.post('/deleteItem',{pizza})
+            const result = await axios.post('/deleteItem', { pizza })
             console.log(result)
-            if(result.data.msg==='deleted')
-            location.reload()
-        })    
+            if (result.data.msg === 'deleted')
+                location.reload()
+        })
     })
 
     if (document.getElementById('rzp-button1'))
