@@ -273,7 +273,7 @@ else if (window.location.pathname === '/cart') {
                         const saveOrderDB = await axios.post('/orders',
                             { phone: '12321321', address: 'delhi haizkhas', 'paymentOrderId': result.data.orderId, 'paymentId': result.data.paymentId })//we return '/orders' if stored properly
 
-                        window.location.href = 'http://localhost:5000' + saveOrderDB.data.redirect;     //localhost:5000/orders
+                        window.location.href = 'https://peppi-pizza-store.herokuapp.com' + saveOrderDB.data.redirect;     //localhost:5000/orders
                     }
                     else window.alert(result.data.msg)
                 },
