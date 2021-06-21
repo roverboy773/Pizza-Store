@@ -252,7 +252,7 @@ else if (window.location.pathname === '/cart') {
             const { amount, id: order_id, currency } = rslt.data
 
             const options = {
-                key: process.env.RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
+                key: 'rzp_test_wpzo4lxSVR4vpg, // Enter the Key ID generated from the Dashboard
                 image: '/img/pizza_svg.svg',
                 currency: currency,
                 name: "PeppiPerry-Pizza House",
