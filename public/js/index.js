@@ -1,10 +1,5 @@
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> c9f6c91e433861e7254454144448a0c749411354
 if (performance.navigation.type == 2) {
     location.reload();
 }
