@@ -1,5 +1,10 @@
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c9f6c91e433861e7254454144448a0c749411354
 if (performance.navigation.type == 2) {
     location.reload();
 }
@@ -252,7 +257,7 @@ else if (window.location.pathname === '/cart') {
             const { amount, id: order_id, currency } = rslt.data
 
             const options = {
-                key: "rzp_test_mTGKc1dmNTnXYK", // Enter the Key ID generated from the Dashboard
+                key: process.env.RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
                 image: '/img/pizza_svg.svg',
                 currency: currency,
                 name: "PeppiPerry-Pizza House",
