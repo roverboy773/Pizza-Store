@@ -8,7 +8,7 @@ async function helper(req,res) {
         const user = await User.find({ email: req.user.emails[0].value })
     
         if (user.length) {
-            return user._id;
+            return res.redirect('/')
         }
         let newuser = new User({
             name: req.user.displayName,
@@ -19,12 +19,13 @@ async function helper(req,res) {
          console.log(saved)
 
         if (saved) 
-             return saved._id
+             return  res.redirect('/')
         else console.log('not saved')
-        console.log(req.session)
-
+        //console.log(req.session)
+         
+        res.redirect('/')
     } catch (e) {
-        console.log(e);
+        //console.log(e);
     }
 }
 

@@ -1,5 +1,5 @@
-
 const Order=require("../../models/order");
+
 function adminController() {
     return {
         async index(req, res) {

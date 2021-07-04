@@ -73,42 +73,7 @@ function orderController() {
                    
                     res.json({redirect:'/orders'})
                 }
-                // Order.populate(result,{path:'customerID'},(err,result)=>{
-                //     req.flash('success', "Order Placed Successfully");
-                //     delete req.session.cart;
-                //     //emiiter
-                //     const eventEmitter=req.app.get('eventEmitter');
-                //     eventEmitter.emit('reflectOrder',{result,message:'New Order Placed'})
-                //    // console.log(`orderController-reflectOrder  ${eventEmitter}`);
-                //     return res.redirect('/orders');
-                // })
-
-
-
-
-
-                // if(saved){
-                //     const populated=await saved.populate('customerID')
-
-                //     req.flash('success', "Order Placed Successfully");
-                //         delete req.session.cart;
-                //         const eventEmitter=req.app.get('eventEmitter');
-                //         eventEmitter.emit('reflectOrder',{saved,message:'New Order Placed'})
-                //        // console.log(`orderController-reflectOrder  ${eventEmitter}`);
-                //         return res.redirect('/orders');
-                // }
-                // .then((result) => {
-                //     Order.populate(result,{path:'customerID'},(err,result)=>{
-                //         req.flash('success', "Order Placed Successfully");
-                //         delete req.session.cart;
-                //         //emiiter
-                //         const eventEmitter=req.app.get('eventEmitter');
-                //         eventEmitter.emit('reflectOrder',{result,message:'New Order Placed'})
-                //        // console.log(`orderController-reflectOrder  ${eventEmitter}`);
-                //         return res.redirect('/orders');
-                //     })
-
-                // })
+                
             } catch (err) {
                 console.log(`Error-> ${err}`)
             }

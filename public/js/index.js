@@ -50,55 +50,56 @@ if (window.location.pathname === '/') {
 
     //arrow key functionality
     let slide0 = 0, slide1 = 0, slide2 = 0, slide3 = 0
+
     menuRightButton.forEach((btn) => {
         btn.addEventListener('click', (e) => {
             //console.log(document.querySelectorAll('.slideshow_item.child0'))
             if (btn.classList.contains('right0')) {
-                slide0=slide0+1;
+                slide0 = slide0 + 1;
                 if (document.querySelectorAll('.slideshow_item.c0').length > slide0) {
-                    var p = slideshow[0].style.marginLeft; // return value in px; i.e 50px
+                    var p = slideshow[0].style.marginLeft; // return value ; i.e 50%
                     //console.log(p)
-                    p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                    slideshow[0].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                    p = p.substr(0, p.length - 1); // remove % ie : 50% becomes 50
+                    slideshow[0].style.marginLeft = (+p) - 100 + '%' // convert p to number and sub -100
                 } else {
                     slideshow[0].style.marginLeft = '0%'
-                    slide0=0
+                    slide0 = 0
                 }
             }
             else if (btn.classList.contains('right1')) {
-                slide1=slide1+1;
+                slide1 = slide1 + 1;
                 if (document.querySelectorAll('.slideshow_item.c1').length > slide1) {
-                    var p = slideshow[1].style.marginLeft; // return value in px; i.e 50px
-                   // console.log(p)
-                    p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                    slideshow[1].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                    var p = slideshow[1].style.marginLeft; // return value ; i.e 50%
+                    // console.log(p)
+                    p = p.substr(0, p.length - 1); //remove % ie : 50% becomes 50
+                    slideshow[1].style.marginLeft = (+p) - 100 + '%' // convert p to number and sub -100
                 } else {
                     slideshow[1].style.marginLeft = '0%'
-                    slide1=0
+                    slide1 = 0
                 }
             }
             else if (btn.classList.contains('right2')) {
-                slide2=slide2+1;
+                slide2 = slide2 + 1;
                 if (document.querySelectorAll('.slideshow_item.c2').length > slide2) {
-                    var p = slideshow[2].style.marginLeft; // return value in px; i.e 50px
-                   // console.log(p)
-                    p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                    slideshow[2].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                    var p = slideshow[2].style.marginLeft; // return value ; i.e 50%
+                    // console.log(p)
+                    p = p.substr(0, p.length - 1); // remove % ie : 50% becomes 50
+                    slideshow[2].style.marginLeft = (+p) - 100 + '%' //  convert p to number and sub -100
                 } else {
                     slideshow[2].style.marginLeft = '0%'
-                    slide2=0
+                    slide2 = 0
                 }
             }
             else if (btn.classList.contains('right3')) {
-                slide3=slide3+1;
+                slide3 = slide3 + 1;
                 if (document.querySelectorAll('.slideshow_item.c3').length > slide3) {
-                    var p = slideshow[3].style.marginLeft; // return value in px; i.e 50px
+                    var p = slideshow[3].style.marginLeft; // return value ; i.e 50%
                     //console.log(p)
-                    p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                    slideshow[3].style.marginLeft = (+p) - 100 + '%' // convert p to number and add 10
+                    p = p.substr(0, p.length - 1); // emove % ie : 50% becomes 50
+                    slideshow[3].style.marginLeft = (+p) - 100 + '%' // convert p to number and sub -100
                 } else {
                     slideshow[3].style.marginLeft = '0%'
-                    slide3=0
+                    slide3 = 0
                 }
             }
         })
@@ -110,32 +111,32 @@ if (window.location.pathname === '/') {
                 var p = slideshow[0].style.marginLeft; // return value in px; i.e 50px
                 //console.log(p)
                 p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                if(p!=0)
-                slideshow[0].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
+                if (p != 0)
+                    slideshow[0].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
             }
             else if (btn.classList.contains('left1')) {
                 var p = slideshow[1].style.marginLeft; // return value in px; i.e 50px
-               // console.log(p)
+                // console.log(p)
 
                 p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                if(p!=0)
-                slideshow[1].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
+                if (p != 0)
+                    slideshow[1].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
             }
             else if (btn.classList.contains('left2')) {
                 var p = slideshow[2].style.marginLeft; // return value in px; i.e 50px
-               // console.log(p)
+                // console.log(p)
 
                 p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                if(p!=0)
-                slideshow[2].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
+                if (p != 0)
+                    slideshow[2].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
             }
             else if (btn.classList.contains('left3')) {
                 var p = slideshow[3].style.marginLeft; // return value in px; i.e 50px
                 //console.log(p)
 
                 p = p.substr(0, p.length - 1); // remove px ie : 50px becomes 50
-                if(p!=0)
-                slideshow[3].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
+                if (p != 0)
+                    slideshow[3].style.marginLeft = (+p) + 100 + '%' // convert p to number and add 10
             }
         })
     })
@@ -252,7 +253,7 @@ else if (window.location.pathname === '/cart') {
             const { amount, id: order_id, currency } = rslt.data
 
             const options = {
-                key:'rzp_test_wpzo4lxSVR4vpg', // Enter the Key ID generated from the Dashboard
+                key: 'rzp_test_wpzo4lxSVR4vpg', // Enter the Key ID generated from the Dashboard
                 image: '/img/pizza_svg.svg',
                 currency: currency,
                 name: "PeppiPerry-Pizza House",
@@ -273,7 +274,7 @@ else if (window.location.pathname === '/cart') {
                         const saveOrderDB = await axios.post('/orders',
                             { phone: '12321321', address: 'delhi haizkhas', 'paymentOrderId': result.data.orderId, 'paymentId': result.data.paymentId })//we return '/orders' if stored properly
 
-                        window.location.href ='https://peppi-pizza-store.herokuapp.com'+ saveOrderDB.data.redirect;     //localhost:5000/orders
+                        window.location.href = 'https://peppi-pizza-store.herokuapp.com' + saveOrderDB.data.redirect;     //localhost:5000/orders
                     }
                     else window.alert(result.data.msg)
                 },
@@ -506,9 +507,11 @@ if (window.location.pathname.includes('/admin/orders')) {//socket working here
         alert.innerHTML = "";
         alert.innerHTML = data.message;
         alert.style.display = "block";
+
         window.setTimeout(() => {
             alert.style.display = "none";
         }, 2000)
+        
         OrdersArray.unshift(data.result);
         adminOrderTable.innerHTML = "";
         adminOrderTable.innerHTML = generateMarkup(OrdersArray);

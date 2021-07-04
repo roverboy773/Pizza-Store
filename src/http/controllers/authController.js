@@ -1,82 +1,58 @@
-const User=require("../../models/user");
-const bcrypt=require('bcrypt');
-const passport=require('passport');
+const User = require("../../models/user");
+const bcrypt = require('bcrypt');
+const passport = require('passport');
 
-function authController(){
+function authController() {
     return {
-        loginType(req,res){
+        loginType(req, res) {
             res.render('login');
         },
-        loginEmail(req,res){
+        loginEmail(req, res) {
             return res.render('loginEmail')
         },
-//         postLogin(req,res){
-//             // passport.authenticate('local',(err,user,info)=>{
-//             //             //(err,user,info) are passed by done(null,user,message)
-//             //       if(err){
-//             //        req.flash('error',info.message); 
-//             //        return next(err);
-//             //     }
-//             //     if(!user){
-//             //         req.flash('error',info.message); 
-//             //        return res.redirect('/login');
-//             //     }
-//             //     req.logIn(user,(err)=>{
-//             //          if(err){
-//             //              req.flash('error',info.message);
-//             //             return next(err);
-//             //          }
-//             //          return res.redirect("/")
-//             //     })
-//             // })(req,res,next)
-//               passport.authenticate('local', { failureRedirect: '/login' }),
-//               function(req, res) {
-//               res.redirect('/');
-//   }
-//         },
-        register(req,res){
+        register(req, res) {
             res.render('register');
         },
-        async postRegister(req,res){
-            const {name,email,password}=req.body;
-             //validation
-            if(!name || !email ||!password){
-                req.flash('error','All fields are required!!!');
-                req.flash('name',name);
-                req.flash('email',email);
+        async postRegister(req, res) {
+            const { name, email, password } = req.body;
+            //validation
+            if (!name || !email || !password) {
+                req.flash('error', 'All fields are required!!!');
+                req.flash('name', name);
+                req.flash('email', email);
                 return res.redirect('/register');
             }
 
-            const emailVerification=await User.find({email:email});
-            if(emailVerification.length>0){
-                req.flash('error','Email already Registered');
-                req.flash('name',name);
-                req.flash('email',email);
+            const emailVerification = await User.find({ email: email });
+            if (emailVerification.length > 0) {
+                req.flash('error', 'Email already Registered');
+                req.flash('name', name);
+                req.flash('email', email);
                 return res.redirect('/register');
             }
             //Hash password
-            const hashedPassword=await bcrypt.hash(password,10)
+            const hashedPassword = await bcrypt.hash(password, 10)
             //create user
-             const user=new User({
-                 name:name,
-                 email:email,
-                 password:hashedPassword
-             })
+            const user = new User({
+                name: name,
+                email: email,
+                password: hashedPassword
+            })
 
-             const saved=await user.save();
-                if(saved){
-                    //auto login after registration
-                    saved.customerID=saved._id;
-                    await saved.save();
-                  return res.redirect('/');
-                }else{
-                    req.flash('error','Something went wrong!')
-                    return res.redirect('/register');
-                }
+            const saved = await user.save();
+            if (saved) {
+                //auto login after registration
+                saved.customerID = saved._id;
+                await saved.save();
+                return res.redirect('/');
+            } else {
+                req.flash('error', 'Something went wrong!')
+                return res.redirect('/register');
+            }
         },
-        logout(req,res){
-            if(req.session.cart)
-            delete req.session.cart
+        logout(req, res) {
+            if (req.session.cart)
+                delete req.session.cart
             // passport.deserializeUser(function(user,done){
             //    done(null,false)
             // })
@@ -86,4 +62,4 @@ function authController(){
     }
 }
 
-module.exports=authController;
+module.exports = authController;
